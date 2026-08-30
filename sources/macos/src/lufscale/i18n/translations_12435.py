@@ -1,0 +1,88 @@
+"""Estimated ReplayGain playback graph for 1.24.35."""
+
+TRANSLATION_UPDATES_12435 = {
+    "fr": {
+        "loudness_comparison_replaygain_after": "Lecture RG estimée",
+        "loudness_comparison_replaygain_note": "Lecteur compatible · audio inchangé",
+        "loudness_comparison_tooltip": "Avant montre la sonie physique. En ReplayGain, le second graphique estime la lecture compatible à partir du gain inscrit ; le fichier audio reste inchangé.",
+        "loudness_comparison_help_text": "Chaque fichier ajoute un point à droite et décale l’historique vers la gauche. Avant affiche toujours la source mesurée. Avec Uniformiser, Après affiche la sortie réellement remesurée. Avec ReplayGain, le second graphique en pointillés affiche une estimation de lecture : sonie source + gain inscrit dans la balise Track. Le signe ≈ et la mention Lecteur compatible rappellent qu’il ne s’agit pas d’une mesure physique du fichier livré. Un lecteur incompatible conserve le niveau d’origine ; un lecteur compatible peut aussi modifier le résultat selon son préamplificateur ou sa protection contre l’écrêtage. Les deux graphiques gardent la même échelle fixe de ±6 LU autour de la cible. Analyser seulement n’a pas de sortie Après.",
+        "version_changes": "• ReplayGain affiche désormais une estimation en pointillés de la lecture par un lecteur compatible.\n• La valeur estimée correspond à la sonie source plus le gain Track inscrit ; le fichier audio reste physiquement inchangé.\n• Le signe ≈, le libellé et l’aide empêchent de confondre cette projection avec une sortie remesurée.",
+    },
+    "en": {
+        "loudness_comparison_replaygain_after": "Estimated RG playback",
+        "loudness_comparison_replaygain_note": "Compatible player · audio unchanged",
+        "loudness_comparison_tooltip": "Before shows physical loudness. In ReplayGain, the second graph estimates compatible-player playback from the stored gain; audio remains unchanged.",
+        "loudness_comparison_help_text": "Each file adds a point on the right and moves history left. Before always shows the measured source. With Normalize, After shows the actually remeasured output. With ReplayGain, the dashed second graph shows a playback estimate: source loudness plus the gain stored in the Track tag. The ≈ sign and Compatible player note make clear that this is not a physical measurement of the delivered file. An incompatible player keeps the original level; a compatible player may also alter the result through preamp or clipping prevention. Both graphs keep the same fixed ±6 LU scale around target. Analyze-only has no After output.",
+        "version_changes": "• ReplayGain now shows a dashed estimate of playback through a compatible player.\n• The estimate is source loudness plus stored Track gain; the audio remains physically unchanged.\n• The ≈ sign, label and help distinguish this projection from a remeasured output.",
+    },
+    "es": {
+        "loudness_comparison_replaygain_after": "Reproducción RG estimada",
+        "loudness_comparison_replaygain_note": "Reproductor compatible · audio intacto",
+        "loudness_comparison_tooltip": "Antes muestra la sonoridad física. En ReplayGain, el segundo gráfico estima la reproducción compatible a partir de la ganancia guardada.",
+        "loudness_comparison_help_text": "Cada archivo añade un punto a la derecha. Antes siempre muestra la fuente medida. Con Normalizar, Después muestra la salida realmente medida de nuevo. Con ReplayGain, el segundo gráfico discontinuo estima la reproducción: sonoridad de la fuente más la ganancia Track guardada. El signo ≈ y la nota Reproductor compatible indican que no es una medición física del archivo entregado. Un reproductor incompatible conserva el nivel original; uno compatible puede variar el resultado por el preamplificador o la protección contra recorte. Ambos gráficos mantienen la misma escala fija de ±6 LU. Solo analizar no tiene salida Después.",
+        "version_changes": "• ReplayGain muestra una estimación discontinua de la reproducción compatible.\n• La estimación suma la ganancia Track a la fuente; el audio físico no cambia.\n• El signo ≈ y la ayuda distinguen la proyección de una salida medida.",
+    },
+    "it": {
+        "loudness_comparison_replaygain_after": "Riproduzione RG stimata",
+        "loudness_comparison_replaygain_note": "Lettore compatibile · audio invariato",
+        "loudness_comparison_tooltip": "Prima mostra la sonorità fisica. In ReplayGain, il secondo grafico stima la riproduzione compatibile dal guadagno memorizzato.",
+        "loudness_comparison_help_text": "Ogni file aggiunge un punto a destra. Prima mostra sempre la sorgente misurata. Con Normalizza, Dopo mostra l’uscita realmente rimisurata. Con ReplayGain, il secondo grafico tratteggiato stima la riproduzione: sonorità sorgente più guadagno Track memorizzato. Il segno ≈ e la nota Lettore compatibile indicano che non è una misura fisica del file consegnato. Un lettore incompatibile mantiene il livello originale; uno compatibile può variare il risultato tramite preamplificazione o protezione dal clipping. I grafici mantengono la stessa scala fissa ±6 LU. Solo analisi non ha un’uscita Dopo.",
+        "version_changes": "• ReplayGain mostra una stima tratteggiata della riproduzione compatibile.\n• La stima aggiunge il guadagno Track alla sorgente; l’audio fisico non cambia.\n• Il segno ≈ e l’aiuto distinguono la proiezione da un’uscita misurata.",
+    },
+    "pt": {
+        "loudness_comparison_replaygain_after": "Reprodução RG estimada",
+        "loudness_comparison_replaygain_note": "Leitor compatível · áudio inalterado",
+        "loudness_comparison_tooltip": "Antes mostra a sonoridade física. Em ReplayGain, o segundo gráfico estima a reprodução compatível a partir do ganho guardado.",
+        "loudness_comparison_help_text": "Cada ficheiro acrescenta um ponto à direita. Antes mostra sempre a origem medida. Com Uniformizar, Depois mostra a saída realmente medida de novo. Com ReplayGain, o segundo gráfico tracejado estima a reprodução: sonoridade da origem mais ganho Track guardado. O sinal ≈ e a nota Leitor compatível indicam que não é uma medição física do ficheiro entregue. Um leitor incompatível mantém o nível original; um compatível pode alterar o resultado pelo pré-amplificador ou proteção contra recorte. Os gráficos mantêm a mesma escala fixa ±6 LU. Apenas analisar não tem saída Depois.",
+        "version_changes": "• ReplayGain mostra uma estimativa tracejada da reprodução compatível.\n• A estimativa soma o ganho Track à origem; o áudio físico não muda.\n• O sinal ≈ e a ajuda distinguem a projeção de uma saída medida.",
+    },
+    "ru": {
+        "loudness_comparison_replaygain_after": "Оценка воспроизведения RG",
+        "loudness_comparison_replaygain_note": "Совместимый плеер · звук не изменён",
+        "loudness_comparison_tooltip": "«До» показывает физическую громкость. Для ReplayGain второй график оценивает воспроизведение по записанному усилению.",
+        "loudness_comparison_help_text": "Каждый файл добавляет точку справа. «До» всегда показывает измеренный источник. При нормализации «После» показывает реально повторно измеренный результат. Для ReplayGain второй пунктирный график оценивает воспроизведение: громкость источника плюс записанный Track Gain. Знак ≈ и пометка о совместимом плеере означают, что это не физическое измерение выходного файла. Несовместимый плеер сохраняет исходный уровень; совместимый может изменить результат настройкой предусиления или защитой от клиппинга. Оба графика сохраняют общую фиксированную шкалу ±6 LU. У режима анализа нет выхода «После».",
+        "version_changes": "• ReplayGain показывает пунктирную оценку воспроизведения совместимым плеером.\n• Оценка складывает громкость источника и Track Gain; физический звук не меняется.\n• Знак ≈ и справка отличают прогноз от измеренного результата.",
+    },
+    "ja": {
+        "loudness_comparison_replaygain_after": "RG再生の推定",
+        "loudness_comparison_replaygain_note": "対応プレーヤー · 音声は不変",
+        "loudness_comparison_tooltip": "「前」は物理ラウドネスです。ReplayGainの第2グラフは保存ゲインから対応プレーヤーでの再生を推定します。",
+        "loudness_comparison_help_text": "各ファイルは右側に点を追加します。「前」は常に測定した入力です。ノーマライズの「後」は実際に再測定した出力です。ReplayGainの第2グラフは破線で、入力ラウドネス＋保存されたTrack Gainによる再生を推定します。≈記号と対応プレーヤーの注記は、出力ファイルの物理測定ではないことを示します。非対応プレーヤーでは元の音量のままです。対応プレーヤーでもプリアンプやクリッピング防止により結果が変わる場合があります。両グラフは共通の固定±6 LUスケールです。解析のみには「後」の出力がありません。",
+        "version_changes": "• ReplayGain対応再生の推定を破線で表示します。\n• 推定値は入力ラウドネス＋Track Gainで、物理音声は変わりません。\n• ≈記号とヘルプで再測定出力との混同を防ぎます。",
+    },
+    "hi": {
+        "loudness_comparison_replaygain_after": "अनुमानित RG playback",
+        "loudness_comparison_replaygain_note": "Compatible player · audio unchanged",
+        "loudness_comparison_tooltip": "पहले physical loudness दिखाता है। ReplayGain में दूसरा graph stored gain से compatible playback का अनुमान दिखाता है।",
+        "loudness_comparison_help_text": "हर file दाईं ओर एक point जोड़ती है। पहले हमेशा measured source दिखाता है। Normalize में बाद वाला graph वास्तव में दोबारा मापा output दिखाता है। ReplayGain में dashed दूसरा graph source loudness और stored Track Gain से playback का अनुमान दिखाता है। ≈ चिह्न और Compatible player note बताते हैं कि यह delivered file की physical measurement नहीं है। Incompatible player मूल level रखता है; compatible player preamp या clipping prevention के कारण परिणाम बदल सकता है। दोनों graph समान fixed ±6 LU scale रखते हैं। Analyze-only में बाद वाला output नहीं है।",
+        "version_changes": "• ReplayGain compatible playback का dashed estimate दिखाता है।\n• Estimate source loudness में Track Gain जोड़ता है; physical audio नहीं बदलता।\n• ≈ चिह्न और help इसे measured output से अलग करते हैं।",
+    },
+    "zh": {
+        "loudness_comparison_replaygain_after": "RG 播放估算",
+        "loudness_comparison_replaygain_note": "兼容播放器 · 音频未改变",
+        "loudness_comparison_tooltip": "“之前”显示物理响度。ReplayGain 的第二个图表根据写入的增益估算兼容播放器的播放效果。",
+        "loudness_comparison_help_text": "每个文件都会在右侧添加一个点。“之前”始终显示测得的源文件。使用标准化时，“之后”显示实际复测的输出。使用 ReplayGain 时，第二个虚线图表估算播放效果：源响度加上写入的 Track Gain。≈ 符号和“兼容播放器”说明表明这不是交付文件的物理测量。播放器不兼容时仍使用原始音量；兼容播放器也可能因前置增益或削波保护而改变结果。两个图表保持相同的固定 ±6 LU 标尺。仅分析模式没有“之后”输出。",
+        "version_changes": "• ReplayGain 以虚线显示兼容播放器的播放估算。\n• 估算为源响度加 Track Gain；物理音频保持不变。\n• ≈ 符号和帮助可避免与复测输出混淆。",
+    },
+    "ko": {
+        "loudness_comparison_replaygain_after": "RG 재생 예상",
+        "loudness_comparison_replaygain_note": "호환 플레이어 · 오디오 불변",
+        "loudness_comparison_tooltip": "이전은 물리적 음량입니다. ReplayGain의 두 번째 그래프는 저장된 게인으로 호환 재생을 예상합니다.",
+        "loudness_comparison_help_text": "파일마다 오른쪽에 점이 추가됩니다. 이전은 항상 측정한 원본입니다. 정규화의 이후는 실제로 다시 측정한 출력입니다. ReplayGain의 두 번째 점선 그래프는 원본 음량과 저장된 Track Gain으로 재생을 예상합니다. ≈ 기호와 호환 플레이어 안내는 전달 파일의 물리 측정이 아님을 뜻합니다. 비호환 플레이어는 원래 음량을 유지하며, 호환 플레이어도 프리앰프나 클리핑 방지에 따라 결과가 달라질 수 있습니다. 두 그래프는 동일한 고정 ±6 LU 눈금을 유지합니다. 분석 전용에는 이후 출력이 없습니다.",
+        "version_changes": "• ReplayGain 호환 재생 예상치를 점선으로 표시합니다.\n• 예상치는 원본 음량과 Track Gain의 합이며 물리 오디오는 바뀌지 않습니다.\n• ≈ 기호와 도움말로 재측정 출력과 구분합니다.",
+    },
+    "id": {
+        "loudness_comparison_replaygain_after": "Estimasi pemutaran RG",
+        "loudness_comparison_replaygain_note": "Pemutar kompatibel · audio tetap",
+        "loudness_comparison_tooltip": "Sebelum menunjukkan loudness fisik. Pada ReplayGain, grafik kedua memperkirakan pemutaran kompatibel dari gain tersimpan.",
+        "loudness_comparison_help_text": "Setiap berkas menambah titik di kanan. Sebelum selalu menampilkan sumber terukur. Pada Normalisasi, Sesudah menampilkan hasil yang benar-benar diukur ulang. Pada ReplayGain, grafik kedua bergaris putus-putus memperkirakan pemutaran: loudness sumber ditambah Track Gain tersimpan. Tanda ≈ dan catatan Pemutar kompatibel menegaskan bahwa ini bukan pengukuran fisik berkas hasil. Pemutar yang tidak kompatibel mempertahankan level asli; pemutar kompatibel dapat mengubah hasil melalui preamp atau pencegahan clipping. Kedua grafik memakai skala tetap ±6 LU yang sama. Analisis saja tidak memiliki keluaran Sesudah.",
+        "version_changes": "• ReplayGain menampilkan estimasi pemutaran kompatibel dengan garis putus-putus.\n• Estimasi menjumlahkan loudness sumber dan Track Gain; audio fisik tidak berubah.\n• Tanda ≈ dan bantuan membedakannya dari hasil yang diukur ulang.",
+    },
+    "tr": {
+        "loudness_comparison_replaygain_after": "Tahmini RG oynatma",
+        "loudness_comparison_replaygain_note": "Uyumlu oynatıcı · ses değişmedi",
+        "loudness_comparison_tooltip": "Önce fiziksel ses düzeyini gösterir. ReplayGain’de ikinci grafik kayıtlı kazançtan uyumlu oynatmayı tahmin eder.",
+        "loudness_comparison_help_text": "Her dosya sağa bir nokta ekler. Önce her zaman ölçülen kaynağı gösterir. Normalleştir’de Sonra gerçekten yeniden ölçülen çıktıdır. ReplayGain’de kesikli ikinci grafik oynatmayı tahmin eder: kaynak ses düzeyi artı kayıtlı Track Gain. ≈ işareti ve Uyumlu oynatıcı notu bunun teslim edilen dosyanın fiziksel ölçümü olmadığını belirtir. Uyumsuz oynatıcı özgün düzeyi korur; uyumlu oynatıcı da preamp veya kırpma önleme nedeniyle sonucu değiştirebilir. İki grafik aynı sabit ±6 LU ölçeğini korur. Yalnızca Analiz modunda Sonra çıktısı yoktur.",
+        "version_changes": "• ReplayGain uyumlu oynatma tahminini kesikli çizgiyle gösterir.\n• Tahmin kaynak ses düzeyi ve Track Gain toplamıdır; fiziksel ses değişmez.\n• ≈ işareti ve yardım, tahmini yeniden ölçülen çıktıdan ayırır.",
+    },
+}

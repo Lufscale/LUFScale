@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.build-tools/
+build/
+dist/
+
+packaging/generated/*
+!packaging/generated/README.md
+
+output/pdf/*.pdf
+
+.DS_Store
+._*
+Thumbs.db
+desktop.ini

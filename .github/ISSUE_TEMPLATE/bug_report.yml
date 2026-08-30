@@ -1,0 +1,77 @@
+name: Report a defect
+description: Describe a reproducible problem in LUFScale
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove personal data from logs and screenshots. Do not publicly attach a confidential audio file.
+  - type: input
+    id: version
+    attributes:
+      label: LUFScale version
+      placeholder: "2.1.12"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Operating system and architecture
+      options:
+        - macOS — Apple Silicon
+        - macOS — Intel
+        - Windows 11 — x86-64
+        - Windows 10 — x86-64
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package used
+      options:
+        - macOS application
+        - Windows installer
+        - Windows portable application
+        - Running from source
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: formats
+    attributes:
+      label: Affected file format
+      placeholder: "MP3, FLAC, WAV…"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the actions in their exact order.
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed result
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Additional information
+      description: Sanitized logs, screenshots or other useful context.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I have removed personal and confidential information from the attached material.
+          required: true

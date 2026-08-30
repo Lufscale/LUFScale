@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "application": {
+    "name": "LUFScale",
+    "version": "2.1.12"
+  },
+  "platform": {
+    "system": "macOS",
+    "architecture": "arm64",
+    "minimum_version": "12.0"
+  },
+  "embedded_runtime": {
+    "python": "3.13.15",
+    "pyside6_qt": "6.8.3",
+    "psutil": "7.2.2",
+    "ffmpeg": {
+      "filename": "ffmpeg",
+      "sha256": "dfae26c56251ee33b444556fa65d98dd83b7bc4b16ec2dbb5b573497a9f215e4"
+    }
+  },
+  "packager": {
+    "name": "PyInstaller",
+    "version": "6.21.0",
+    "isolated_python": "/Users/Philippe/Downloads/LUFScale-2.1.12-macOS-open-source/.build-tools/python/cpython-3.13.15-macos-aarch64-none/bin/python3.13"
+  },
+  "end_user_external_runtime_required": false
+}

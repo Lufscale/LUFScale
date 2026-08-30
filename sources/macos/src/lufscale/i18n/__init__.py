@@ -1,0 +1,1 @@
+"""Textes localisés de LUFScale."""

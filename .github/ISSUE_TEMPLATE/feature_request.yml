@@ -1,0 +1,34 @@
+name: Propose an improvement
+description: Suggest an enhancement to LUFScale
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Problem or limitation
+      description: Explain the need before describing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Affected platforms
+      options:
+        - macOS and Windows
+        - macOS only
+        - Windows only
+        - I do not know
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives already considered or attempted

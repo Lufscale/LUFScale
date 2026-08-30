@@ -1,0 +1,118 @@
+"""Advanced Album-mode guidance for application help and PDF guides."""
+
+from __future__ import annotations
+
+
+TRANSLATION_UPDATES_12431: dict[str, dict[str, str]] = {
+    "fr": {
+        "mode_album": "Album — avancé, écarts préservés",
+        "mode_tooltip": "Piste — recommandé : rapproche chaque fichier de la cible. Album — mode avancé spécialisé : ajuste le niveau global du dossier avec un gain commun et conserve les écarts entre pistes.",
+        "album_analysis_help_text": "Album - mode avancé spécialisé\n\nIl applique un gain commun à tout le dossier : le niveau général change, mais les contrastes entre pistes restent intacts.\n\nPertinent pour\n• albums écoutés dans leur ordre : musique classique, concerts et albums conceptuels ;\n• introductions, interludes ou transitions volontairement plus calmes.\n\nPeu pertinent pour\n• lecture aléatoire, singles ou listes mélangeant plusieurs albums ;\n• recherche d’un niveau régulier ou de la même valeur LUFS pour chaque fichier.\n\nDans ces cas, choisissez Piste. Avec Uniformiser, aucun lecteur spécial n’est requis ; avec ReplayGain, les balises Album nécessitent un lecteur compatible. La mesure globale supplémentaire explique un traitement plus long, et la crête maximale peut limiter le gain.",
+        "guide_level_mode_body": "Piste - recommandé : rapproche chaque fichier de la cible. Album - avancé et spécialisé : applique un gain commun et conserve les contrastes. Utilisez Album pour une œuvre écoutée dans son ordre ; Piste pour la lecture aléatoire ou un niveau régulier fichier par fichier.",
+        "guide_album_advanced_title": "Album - fonction avancée et spécialisée",
+        "guide_album_advanced_body": "Apporte : un gain commun change le niveau général sans effacer les contrastes entre pistes.\nPertinent pour : albums écoutés dans leur ordre - classique, concerts, albums conceptuels, introductions ou transitions plus calmes.\nPeu pertinent pour : lecture aléatoire, singles, listes mélangées ou même cible LUFS par fichier ; choisissez alors Piste. Uniformiser ne demande aucun lecteur spécial ; les balises Album de ReplayGain, oui. La mesure globale supplémentaire rend le traitement plus long.",
+        "version_changes": "• Le mode Album est désormais présenté comme une fonction avancée et spécialisée.\n• L’aide et le guide indiquent clairement ce qu’il apporte, quand il est pertinent et quand choisir Piste.\n• La différence entre Uniformiser et les balises Album de ReplayGain est précisée.\n• Les douze langues partagent la même explication ; le traitement audio est inchangé.",
+    },
+    "en": {
+        "mode_album": "Album — advanced, preserve contrasts",
+        "mode_tooltip": "Track — recommended: brings each file toward target. Album — advanced specialized mode: adjusts the folder’s overall level with one shared gain while preserving track differences.",
+        "album_analysis_help_text": "Album - advanced, specialized mode\n\nIt applies one shared gain to the entire folder: the overall level changes, but contrasts between tracks remain intact.\n\nRelevant for\n• albums heard in order: classical music, concerts and concept albums;\n• intentionally quieter introductions, interludes or transitions.\n\nLess relevant for\n• shuffle playback, singles or playlists mixing several albums;\n• a consistent level or the same LUFS value for every file.\n\nChoose Track in those cases. Normalize requires no special player; with ReplayGain, Album tags require a compatible player. The extra global measurement makes processing longer, and the true-peak limit may restrict gain.",
+        "guide_level_mode_body": "Track - recommended: brings each file toward target. Album - advanced and specialized: applies one shared gain and preserves contrasts. Use Album for a work heard in order; Track for shuffle playback or a consistent file-to-file level.",
+        "guide_album_advanced_title": "Album - advanced, specialized function",
+        "guide_album_advanced_body": "Benefit: one shared gain changes the overall level without erasing contrasts between tracks.\nRelevant for: albums heard in order - classical, concerts, concept albums, quieter introductions or transitions.\nLess relevant for: shuffle, singles, mixed playlists or the same LUFS target per file; choose Track instead. Normalize needs no special player; ReplayGain Album tags do. The extra global measurement makes processing longer.",
+        "version_changes": "• Album is now identified as an advanced, specialized mode.\n• Help and guides explain its benefit, relevant uses and when to choose Track.\n• The difference between Normalize and ReplayGain Album tags is explicit.\n• All twelve languages share the guidance; audio processing is unchanged.",
+    },
+    "es": {
+        "mode_album": "Álbum — avanzado, conserva contrastes",
+        "mode_tooltip": "Pista — recomendado: acerca cada archivo al objetivo. Álbum — modo avanzado especializado: ajusta el nivel global de la carpeta con una ganancia común y conserva las diferencias.",
+        "album_analysis_help_text": "Álbum - modo avanzado y especializado\n\nAplica una ganancia común a toda la carpeta: cambia el nivel general, pero conserva los contrastes entre pistas.\n\nPertinente para\n• álbumes escuchados en orden: clásica, conciertos y álbumes conceptuales;\n• introducciones, interludios o transiciones más suaves de forma intencionada.\n\nPoco pertinente para\n• reproducción aleatoria, singles o listas que mezclan varios álbumes;\n• un nivel regular o el mismo valor LUFS en cada archivo.\n\nEn esos casos, elija Pista. Normalizar no requiere un reproductor especial; con ReplayGain, las etiquetas Álbum sí requieren uno compatible. La medición global adicional alarga el proceso y el límite de pico puede restringir la ganancia.",
+        "guide_level_mode_body": "Pista - recomendado: acerca cada archivo al objetivo. Álbum - avanzado y especializado: aplica una ganancia común y conserva los contrastes. Use Álbum para una obra escuchada en orden; Pista para reproducción aleatoria o un nivel regular entre archivos.",
+        "guide_album_advanced_title": "Álbum - función avanzada y especializada",
+        "guide_album_advanced_body": "Aporta: una ganancia común cambia el nivel general sin borrar los contrastes.\nPertinente para: álbumes escuchados en orden - clásica, conciertos, obras conceptuales, introducciones o transiciones suaves.\nPoco pertinente para: reproducción aleatoria, singles, listas mixtas o el mismo objetivo LUFS por archivo; use Pista. Normalizar no exige un reproductor especial; las etiquetas Álbum de ReplayGain sí. La medición global adicional alarga el proceso.",
+        "version_changes": "• Álbum se presenta como modo avanzado y especializado.\n• La ayuda y la guía explican su utilidad y cuándo usar Pista.\n• Se distingue Normalizar de las etiquetas Álbum de ReplayGain.\n• Las doce lenguas están actualizadas; el procesamiento no cambia.",
+    },
+    "it": {
+        "mode_album": "Album — avanzato, preserva i contrasti",
+        "mode_tooltip": "Traccia — consigliato: avvicina ogni file all’obiettivo. Album — modalità avanzata specializzata: regola il livello globale della cartella con un guadagno comune e conserva le differenze.",
+        "album_analysis_help_text": "Album - modalità avanzata e specializzata\n\nApplica un guadagno comune all’intera cartella: il livello generale cambia, ma i contrasti fra tracce restano intatti.\n\nPertinente per\n• album ascoltati in ordine: classica, concerti e concept album;\n• introduzioni, interludi o transizioni volutamente più quieti.\n\nPoco pertinente per\n• riproduzione casuale, singoli o playlist che mescolano album;\n• un livello regolare o lo stesso valore LUFS per ogni file.\n\nIn questi casi scegliere Traccia. Uniformare non richiede un lettore speciale; con ReplayGain, i tag Album richiedono un lettore compatibile. La misura globale aggiuntiva allunga l’elaborazione e il limite di picco può ridurre il guadagno.",
+        "guide_level_mode_body": "Traccia - consigliato: avvicina ogni file all’obiettivo. Album - avanzato e specializzato: applica un guadagno comune e conserva i contrasti. Usare Album per un’opera ascoltata in ordine; Traccia per riproduzione casuale o livello regolare fra file.",
+        "guide_album_advanced_title": "Album - funzione avanzata e specializzata",
+        "guide_album_advanced_body": "Apporta: un guadagno comune cambia il livello generale senza cancellare i contrasti.\nPertinente per: album ascoltati in ordine - classica, concerti, concept album, introduzioni o transizioni più quiete.\nPoco pertinente per: casuale, singoli, playlist miste o stesso obiettivo LUFS per file; usare Traccia. Uniformare non richiede lettori speciali; i tag Album di ReplayGain sì. La misura globale aggiuntiva allunga l’elaborazione.",
+        "version_changes": "• Album è indicato come modalità avanzata e specializzata.\n• Aiuto e guida ne spiegano utilità e limiti.\n• È chiarita la differenza con i tag Album di ReplayGain.\n• Dodici lingue aggiornate; elaborazione invariata.",
+    },
+    "pt": {
+        "mode_album": "Álbum — avançado, preserva contrastes",
+        "mode_tooltip": "Faixa — recomendado: aproxima cada ficheiro do alvo. Álbum — modo avançado especializado: ajusta o nível global da pasta com um ganho comum e preserva as diferenças.",
+        "album_analysis_help_text": "Álbum - modo avançado e especializado\n\nAplica um ganho comum a toda a pasta: o nível geral muda, mas os contrastes entre faixas permanecem.\n\nPertinente para\n• álbuns ouvidos pela ordem: música clássica, concertos e álbuns conceptuais;\n• introduções, interlúdios ou transições intencionalmente mais suaves.\n\nPouco pertinente para\n• reprodução aleatória, singles ou listas que misturam álbuns;\n• um nível regular ou o mesmo valor LUFS em cada ficheiro.\n\nNesses casos, escolha Faixa. Uniformizar não exige leitor especial; com ReplayGain, as etiquetas Álbum exigem um leitor compatível. A medição global adicional torna o processo mais longo e o limite de pico pode restringir o ganho.",
+        "guide_level_mode_body": "Faixa - recomendado: aproxima cada ficheiro do alvo. Álbum - avançado e especializado: aplica um ganho comum e preserva contrastes. Use Álbum para uma obra ouvida pela ordem; Faixa para reprodução aleatória ou nível regular entre ficheiros.",
+        "guide_album_advanced_title": "Álbum - função avançada e especializada",
+        "guide_album_advanced_body": "Benefício: um ganho comum muda o nível geral sem apagar os contrastes.\nPertinente para: álbuns ouvidos pela ordem - clássica, concertos, obras conceptuais, introduções ou transições suaves.\nPouco pertinente para: aleatório, singles, listas mistas ou mesmo alvo LUFS por ficheiro; use Faixa. Uniformizar não exige leitor especial; etiquetas Álbum de ReplayGain exigem. A medição global adicional prolonga o processo.",
+        "version_changes": "• Álbum passa a ser apresentado como modo avançado e especializado.\n• A ajuda e o guia explicam a sua utilidade e limites.\n• A diferença para etiquetas Álbum de ReplayGain fica clara.\n• Doze línguas atualizadas; processamento inalterado.",
+    },
+    "ru": {
+        "mode_album": "Альбом — расширенный, сохраняет контрасты",
+        "mode_tooltip": "Трек — рекомендуется: ведёт каждый файл к цели. Альбом — специализированный расширенный режим: регулирует общий уровень папки единым усилением, сохраняя различия.",
+        "album_analysis_help_text": "Альбом - специализированный расширенный режим\n\nКо всей папке применяется одно усиление: общий уровень меняется, но контрасты между треками сохраняются.\n\nПодходит для\n• альбомов, слушаемых по порядку: классики, концертов и концептуальных альбомов;\n• намеренно тихих вступлений, интерлюдий и переходов.\n\nМало подходит для\n• случайного порядка, синглов и списков из разных альбомов;\n• ровного уровня или одинакового LUFS каждого файла.\n\nВ этих случаях выбирайте Трек. Нормализация не требует особого проигрывателя; теги Album ReplayGain требуют совместимого проигрывателя. Дополнительное общее измерение увеличивает время, а предел пика может ограничить усиление.",
+        "guide_level_mode_body": "Трек - рекомендуется: ведёт каждый файл к цели. Альбом - расширенный специализированный режим: применяет общее усиление и сохраняет контрасты. Альбом подходит для последовательного прослушивания, Трек - для случайного порядка и ровного уровня файлов.",
+        "guide_album_advanced_title": "Альбом - расширенная специальная функция",
+        "guide_album_advanced_body": "Польза: единое усиление меняет общий уровень, не стирая контрасты между треками.\nПодходит для: классики, концертов, концептуальных альбомов и тихих переходов при прослушивании по порядку.\nМало подходит для: случайного порядка, синглов, смешанных списков и одинаковой цели LUFS каждого файла; выбирайте Трек. Нормализации особый проигрыватель не нужен, тегам Album ReplayGain нужен. Общее измерение увеличивает время.",
+        "version_changes": "• Альбом обозначен как расширенный специализированный режим.\n• Справка и руководство объясняют пользу и ограничения.\n• Отличие от тегов Album ReplayGain уточнено.\n• Обновлены 12 языков; обработка не менялась.",
+    },
+    "ja": {
+        "mode_album": "アルバム — 上級・曲間差を維持",
+        "mode_tooltip": "トラック（推奨）は各ファイルを目標へ近づけます。アルバムは上級者向けの特殊モードで、共通ゲインによりフォルダー全体を調整し、曲間差を保ちます。",
+        "album_analysis_help_text": "アルバム - 上級者向け特殊モード\n\nフォルダー全体に同じゲインを適用します。全体レベルは変わりますが、曲間のコントラストは保たれます。\n\n適している用途\n• 順番どおり聴くクラシック、ライブ、コンセプトアルバム\n• 意図的に静かなイントロ、間奏、トランジション\n\nあまり適さない用途\n• シャッフル、シングル、複数アルバムを混ぜたプレイリスト\n• 各ファイルを同じ音量または同じLUFSにする場合\n\nその場合はトラックを選びます。均一化は特別なプレーヤーを必要としませんが、ReplayGainのアルバムタグには対応プレーヤーが必要です。全体測定の追加により時間が延び、ピーク制限でゲインが抑えられる場合があります。",
+        "guide_level_mode_body": "トラック（推奨）は各ファイルを目標へ近づけます。アルバムは上級の特殊モードで、共通ゲインにより曲間のコントラストを保ちます。順番どおり聴く作品にはアルバム、シャッフルやファイルごとの均一化にはトラックを使います。",
+        "guide_album_advanced_title": "アルバム - 上級者向け特殊機能",
+        "guide_album_advanced_body": "利点：共通ゲインで全体レベルを変え、曲間のコントラストを保ちます。\n適する用途：順番どおり聴くクラシック、ライブ、コンセプト作品、静かなイントロやトランジション。\n不向き：シャッフル、シングル、混在プレイリスト、各ファイルを同じLUFSにする場合。その場合はトラックを使います。均一化に特別なプレーヤーは不要ですが、ReplayGainのアルバムタグには対応プレーヤーが必要です。全体測定により時間が延びます。",
+        "version_changes": "• アルバムを上級者向け特殊モードとして明示しました。\n• ヘルプとガイドに用途と不向きな場面を追加しました。\n• ReplayGainアルバムタグとの違いを明確にしました。\n• 12言語を更新し、音声処理は変更していません。",
+    },
+    "hi": {
+        "mode_album": "Album — advanced, contrasts सुरक्षित",
+        "mode_tooltip": "Track — recommended: हर file को target के पास लाता है। Album — advanced specialized mode: पूरे folder पर common gain लगाकर tracks के differences बचाता है।",
+        "album_analysis_help_text": "Album - advanced specialized mode\n\nपूरे folder पर एक common gain लगता है: overall level बदलता है, पर tracks के contrasts बने रहते हैं।\n\nउपयोगी है\n• क्रम में सुने जाने वाले classical, concert और concept albums के लिए;\n• जानबूझकर शांत intro, interlude या transition के लिए।\n\nकम उपयोगी है\n• shuffle, singles या कई albums मिलाने वाली playlists के लिए;\n• हर file का regular level या समान LUFS पाने के लिए।\n\nइन मामलों में Track चुनें। Normalize के लिए special player नहीं चाहिए; ReplayGain Album tags के लिए compatible player चाहिए। Extra global measurement से processing लंबी होती है और peak limit gain रोक सकती है।",
+        "guide_level_mode_body": "Track - recommended: हर file को target के पास लाता है। Album - advanced specialized: common gain लगाकर contrasts बचाता है। क्रम में सुने जाने वाले work के लिए Album; shuffle या समान file level के लिए Track चुनें।",
+        "guide_album_advanced_title": "Album - advanced specialized function",
+        "guide_album_advanced_body": "लाभ: common gain overall level बदलता है, tracks के contrasts नहीं।\nउपयोगी: क्रम में सुने जाने वाले classical, concert, concept albums और शांत transitions।\nकम उपयोगी: shuffle, singles, mixed playlists या हर file का समान LUFS; तब Track चुनें। Normalize को special player नहीं चाहिए; ReplayGain Album tags को compatible player चाहिए। Extra global measurement processing लंबी करता है।",
+        "version_changes": "• Album अब advanced specialized mode के रूप में स्पष्ट है।\n• Help और guide उसके उपयोग और limits बताते हैं।\n• ReplayGain Album tags का अंतर स्पष्ट है।\n• सभी 12 languages update हैं; audio processing unchanged है।",
+    },
+    "zh": {
+        "mode_album": "专辑 — 高级，保留曲目对比",
+        "mode_tooltip": "单曲（推荐）让每个文件接近目标。专辑是高级专用模式：用共同增益调整整个文件夹，并保留曲目之间的差异。",
+        "album_analysis_help_text": "专辑 - 高级专用模式\n\n整个文件夹使用同一增益：总体音量会改变，但曲目之间的对比保持不变。\n\n适用于\n• 按顺序聆听的古典、现场和概念专辑；\n• 有意较安静的前奏、间奏或过渡。\n\n不太适用于\n• 随机播放、单曲或混合多张专辑的列表；\n• 让每个文件具有稳定音量或相同LUFS。\n\n这些情况请选择单曲。均一化不需要特殊播放器；ReplayGain专辑标签需要兼容播放器。额外的全局测量会延长处理时间，峰值限制也可能约束增益。",
+        "guide_level_mode_body": "单曲（推荐）让每个文件接近目标。专辑是高级专用模式，用共同增益保留曲目对比。按顺序聆听完整作品时用专辑；随机播放或要求文件间音量稳定时用单曲。",
+        "guide_album_advanced_title": "专辑 - 高级专用功能",
+        "guide_album_advanced_body": "作用：共同增益改变总体音量，但不抹去曲目之间的对比。\n适用于：按顺序聆听的古典、现场、概念专辑，以及较安静的前奏或过渡。\n不太适用于：随机播放、单曲、混合列表或要求每个文件相同LUFS；此时请选择单曲。均一化不需要特殊播放器，ReplayGain专辑标签需要。额外的全局测量会延长处理时间。",
+        "version_changes": "• 专辑明确标为高级专用模式。\n• 帮助和指南说明其用途与不适用场景。\n• 明确与ReplayGain专辑标签的区别。\n• 十二种语言已更新；音频处理未改变。",
+    },
+    "ko": {
+        "mode_album": "앨범 — 고급, 곡 간 대비 유지",
+        "mode_tooltip": "트랙(권장)은 각 파일을 목표에 맞춥니다. 앨범은 고급 특수 모드로, 폴더 전체에 공통 게인을 적용하면서 곡 간 차이를 유지합니다.",
+        "album_analysis_help_text": "앨범 - 고급 특수 모드\n\n폴더 전체에 같은 게인을 적용합니다. 전체 음량은 바뀌지만 곡 사이의 대비는 유지됩니다.\n\n적합한 경우\n• 순서대로 듣는 클래식, 라이브, 콘셉트 앨범\n• 의도적으로 조용한 인트로, 인터루드, 전환\n\n덜 적합한 경우\n• 셔플, 싱글, 여러 앨범을 섞은 재생목록\n• 파일마다 일정한 음량이나 같은 LUFS가 필요한 경우\n\n이때는 트랙을 선택합니다. 균일화에는 특별한 플레이어가 필요 없지만 ReplayGain 앨범 태그에는 호환 플레이어가 필요합니다. 추가 전체 측정으로 시간이 늘고 피크 제한이 게인을 줄일 수 있습니다.",
+        "guide_level_mode_body": "트랙(권장)은 각 파일을 목표에 맞춥니다. 앨범은 고급 특수 모드로 공통 게인을 적용해 곡 간 대비를 유지합니다. 순서대로 듣는 작품에는 앨범, 셔플이나 파일별 일정한 음량에는 트랙을 사용합니다.",
+        "guide_album_advanced_title": "앨범 - 고급 특수 기능",
+        "guide_album_advanced_body": "효과: 공통 게인으로 전체 음량을 바꾸되 곡 사이의 대비는 지우지 않습니다.\n적합: 순서대로 듣는 클래식, 라이브, 콘셉트 앨범과 조용한 인트로·전환.\n덜 적합: 셔플, 싱글, 혼합 재생목록, 파일마다 같은 LUFS가 필요한 경우. 이때는 트랙을 사용합니다. 균일화는 특별한 플레이어가 필요 없지만 ReplayGain 앨범 태그는 호환 플레이어가 필요합니다. 전체 측정으로 시간이 늘어납니다.",
+        "version_changes": "• 앨범을 고급 특수 모드로 명확히 표시했습니다.\n• 도움말과 안내서에 용도와 한계를 설명했습니다.\n• ReplayGain 앨범 태그와의 차이를 명시했습니다.\n• 12개 언어를 갱신했고 음성 처리는 바뀌지 않았습니다.",
+    },
+    "id": {
+        "mode_album": "Album — lanjutan, pertahankan kontras",
+        "mode_tooltip": "Trek — disarankan: mendekatkan tiap berkas ke target. Album — mode lanjutan khusus: menyesuaikan tingkat seluruh folder dengan satu gain bersama sambil mempertahankan perbedaan trek.",
+        "album_analysis_help_text": "Album - mode lanjutan khusus\n\nSatu gain diterapkan ke seluruh folder: tingkat keseluruhan berubah, tetapi kontras antar trek tetap utuh.\n\nRelevan untuk\n• album yang didengar berurutan: klasik, konser, dan album konsep;\n• intro, interlude, atau transisi yang sengaja lebih tenang.\n\nKurang relevan untuk\n• putar acak, single, atau daftar yang mencampur beberapa album;\n• tingkat konsisten atau nilai LUFS yang sama untuk tiap berkas.\n\nDalam kasus itu pilih Trek. Normalisasi tidak memerlukan pemutar khusus; tag Album ReplayGain memerlukan pemutar kompatibel. Pengukuran global tambahan memperpanjang proses dan batas puncak dapat membatasi gain.",
+        "guide_level_mode_body": "Trek - disarankan: mendekatkan tiap berkas ke target. Album - lanjutan dan khusus: memakai gain bersama dan mempertahankan kontras. Gunakan Album untuk karya yang didengar berurutan; Trek untuk acak atau tingkat antarberkas yang konsisten.",
+        "guide_album_advanced_title": "Album - fungsi lanjutan dan khusus",
+        "guide_album_advanced_body": "Manfaat: gain bersama mengubah tingkat keseluruhan tanpa menghapus kontras trek.\nRelevan untuk: album berurutan - klasik, konser, karya konsep, intro atau transisi tenang.\nKurang relevan untuk: acak, single, daftar campuran, atau target LUFS sama per berkas; pilih Trek. Normalisasi tidak perlu pemutar khusus; tag Album ReplayGain perlu. Pengukuran global tambahan memperpanjang proses.",
+        "version_changes": "• Album kini ditandai sebagai mode lanjutan khusus.\n• Bantuan dan panduan menjelaskan manfaat dan batasnya.\n• Perbedaan dengan tag Album ReplayGain diperjelas.\n• Dua belas bahasa diperbarui; pemrosesan tidak berubah.",
+    },
+    "tr": {
+        "mode_album": "Albüm — gelişmiş, farkları korur",
+        "mode_tooltip": "Parça — önerilen: her dosyayı hedefe yaklaştırır. Albüm — gelişmiş özel mod: klasörün genel düzeyini tek ortak kazançla ayarlar ve parça farklarını korur.",
+        "album_analysis_help_text": "Albüm - gelişmiş ve özel mod\n\nTüm klasöre tek ortak kazanç uygulanır: genel düzey değişir, parçalar arasındaki karşıtlıklar korunur.\n\nUygundur\n• sırayla dinlenen klasik, konser ve konsept albümler için;\n• bilerek daha sakin bırakılan giriş, ara bölüm veya geçişler için.\n\nPek uygun değildir\n• karışık çalma, single veya farklı albümleri birleştiren listeler için;\n• her dosyada düzenli düzey ya da aynı LUFS için.\n\nBu durumlarda Parça seçin. Normalleştirme özel oynatıcı gerektirmez; ReplayGain Albüm etiketleri uyumlu oynatıcı gerektirir. Ek genel ölçüm işlemi uzatır ve tepe sınırı kazancı kısıtlayabilir.",
+        "guide_level_mode_body": "Parça - önerilen: her dosyayı hedefe yaklaştırır. Albüm - gelişmiş ve özel: ortak kazanç uygular ve karşıtlıkları korur. Sırayla dinlenen eser için Albüm; karışık çalma veya dosyalar arası düzenli düzey için Parça kullanın.",
+        "guide_album_advanced_title": "Albüm - gelişmiş ve özel işlev",
+        "guide_album_advanced_body": "Katkısı: ortak kazanç genel düzeyi değiştirir, parça karşıtlıklarını silmez.\nUygun: sırayla dinlenen klasik, konser, konsept albümler ve sakin girişler ya da geçişler.\nPek uygun değil: karışık çalma, single, karma listeler veya dosya başına aynı LUFS; Parça seçin. Normalleştirme özel oynatıcı istemez; ReplayGain Albüm etiketleri ister. Ek genel ölçüm işlemi uzatır.",
+        "version_changes": "• Albüm gelişmiş özel mod olarak belirtildi.\n• Yardım ve kılavuz yararını ve sınırlarını açıklıyor.\n• ReplayGain Albüm etiketleriyle farkı netleştirildi.\n• On iki dil güncellendi; ses işleme değişmedi.",
+    },
+}
+
+
+__all__ = ["TRANSLATION_UPDATES_12431"]

@@ -1,0 +1,88 @@
+"""Messages propres à l'édition autonome LUFScale 2.0.0."""
+
+TRANSLATION_UPDATES_20000 = {
+    "fr": {
+        "guide_quality_priority_title": "À quoi sert LUFScale ?",
+        "guide_quality_priority_body": "LUFScale mesure la sonie de vos fichiers et, avec Uniformiser, ajuste réellement leur volume perçu vers une cible LUFS tout en contrôlant la crête vraie. Chaque source est analysée sur toute sa durée, puis la sortie est remesurée et vérifiée. Le résultat ne dépend pas de balises ni d’un lecteur compatible : le niveau devient plus cohérent entre les fichiers, les écarts sont signalés et les originaux restent intacts.",
+        "guide_analysis_method": "LUFScale utilise automatiquement la mesure historique complète, seule méthode validée sur le corpus de référence.",
+        "interface_ffmpeg_message": "Le moteur audio FFmpeg intégré est absent ou inutilisable. Réinstallez LUFScale depuis l’archive complète de distribution.",
+        "version_changes": "• Première édition autonome : FFmpeg et les codecs audio requis sont intégrés dans LUFScale.app.\n• Aucun Python, Homebrew ou FFmpeg séparé n’est nécessaire sur le Mac de l’utilisateur.\n• Le moteur est construit depuis des sources figées et vérifiées ; les licences, empreintes et sources exactes accompagnent la distribution.",
+    },
+    "en": {
+        "guide_quality_priority_title": "What does LUFScale do?",
+        "guide_quality_priority_body": "LUFScale measures file loudness and, with Normalize, physically adjusts perceived volume toward a LUFS target while controlling true peak. Each source is analysed over its full duration, then the output is remeasured and verified. The result does not depend on tags or a compatible player: levels become more consistent across files, deviations are flagged, and originals remain untouched.",
+        "guide_analysis_method": "LUFScale automatically uses the full historical measurement, the only method validated on the reference corpus.",
+        "interface_ffmpeg_message": "The bundled FFmpeg audio engine is missing or unusable. Reinstall LUFScale from the complete distribution archive.",
+        "version_changes": "• First self-contained edition: FFmpeg and the required audio codecs are built into LUFScale.app.\n• Users need no separate Python, Homebrew or FFmpeg installation.\n• The engine is built from pinned, verified sources; licences, checksums and exact sources accompany the distribution.",
+    },
+    "es": {
+        "guide_quality_priority_title": "¿Para qué sirve LUFScale?",
+        "guide_quality_priority_body": "LUFScale mide la sonoridad de los archivos y, con Normalizar, ajusta físicamente el volumen percibido hacia un objetivo LUFS mientras controla el pico real. Cada fuente se analiza en toda su duración y después se vuelve a medir y verificar la salida. El resultado no depende de etiquetas ni de un reproductor compatible: los niveles son más coherentes entre archivos, se señalan las desviaciones y los originales permanecen intactos.",
+        "guide_analysis_method": "LUFScale utiliza automáticamente la medición histórica completa, el único método validado en el corpus de referencia.",
+        "interface_ffmpeg_message": "El motor de audio FFmpeg integrado falta o no se puede usar. Reinstale LUFScale desde el archivo de distribución completo.",
+        "version_changes": "• Primera edición autónoma: FFmpeg y los códecs de audio necesarios están integrados en LUFScale.app.\n• El usuario no necesita instalar Python, Homebrew ni FFmpeg por separado.\n• El motor se compila desde fuentes fijadas y verificadas; la distribución incluye licencias, huellas y fuentes exactas.",
+    },
+    "it": {
+        "guide_quality_priority_title": "A cosa serve LUFScale?",
+        "guide_quality_priority_body": "LUFScale misura la sonorità dei file e, con Normalizza, regola fisicamente il volume percepito verso un obiettivo LUFS controllando il picco reale. Ogni sorgente viene analizzata per intero; l’uscita viene poi misurata di nuovo e verificata. Il risultato non dipende da tag o da un lettore compatibile: i livelli sono più coerenti tra i file, gli scostamenti vengono segnalati e gli originali restano intatti.",
+        "guide_analysis_method": "LUFScale usa automaticamente la misura storica completa, l’unico metodo convalidato sul corpus di riferimento.",
+        "interface_ffmpeg_message": "Il motore audio FFmpeg integrato manca o non è utilizzabile. Reinstalla LUFScale dall’archivio di distribuzione completo.",
+        "version_changes": "• Prima edizione autonoma: FFmpeg e i codec audio necessari sono integrati in LUFScale.app.\n• L’utente non deve installare separatamente Python, Homebrew o FFmpeg.\n• Il motore è compilato da sorgenti fissate e verificate; licenze, impronte e sorgenti esatti accompagnano la distribuzione.",
+    },
+    "pt": {
+        "guide_quality_priority_title": "Para que serve o LUFScale?",
+        "guide_quality_priority_body": "O LUFScale mede a sonoridade dos ficheiros e, com Normalizar, ajusta fisicamente o volume percebido para um alvo LUFS, controlando o pico verdadeiro. Cada fonte é analisada em toda a sua duração; a saída é depois novamente medida e verificada. O resultado não depende de etiquetas nem de um leitor compatível: os níveis ficam mais coerentes entre ficheiros, os desvios são assinalados e os originais permanecem intactos.",
+        "guide_analysis_method": "O LUFScale utiliza automaticamente a medição histórica completa, o único método validado no corpus de referência.",
+        "interface_ffmpeg_message": "O motor de áudio FFmpeg integrado está ausente ou inutilizável. Reinstale o LUFScale a partir do arquivo de distribuição completo.",
+        "version_changes": "• Primeira edição autónoma: o FFmpeg e os codecs de áudio necessários estão integrados no LUFScale.app.\n• O utilizador não precisa de instalar Python, Homebrew ou FFmpeg separadamente.\n• O motor é criado a partir de fontes fixadas e verificadas; licenças, hashes e fontes exatas acompanham a distribuição.",
+    },
+    "ru": {
+        "guide_quality_priority_title": "Для чего нужен LUFScale?",
+        "guide_quality_priority_body": "LUFScale измеряет громкость файлов и в режиме нормализации физически корректирует воспринимаемый уровень до цели LUFS, контролируя истинный пик. Каждый источник анализируется целиком, после чего выход повторно измеряется и проверяется. Результат не зависит от тегов или совместимого проигрывателя: уровни файлов становятся согласованнее, отклонения отмечаются, а оригиналы остаются неизменными.",
+        "guide_analysis_method": "LUFScale автоматически использует полный исторический замер - единственный метод, проверенный на эталонном наборе.",
+        "interface_ffmpeg_message": "Встроенный аудиодвижок FFmpeg отсутствует или непригоден. Переустановите LUFScale из полного архива дистрибутива.",
+        "version_changes": "• Первая автономная версия: FFmpeg и необходимые аудиокодеки встроены в LUFScale.app.\n• Пользователю не требуется отдельно устанавливать Python, Homebrew или FFmpeg.\n• Движок собран из закреплённых и проверенных исходников; лицензии, контрольные суммы и точные исходники входят в дистрибутив.",
+    },
+    "ja": {
+        "guide_quality_priority_title": "LUFScaleでできること",
+        "guide_quality_priority_body": "LUFScaleはファイルのラウドネスを測定し、「ノーマライズ」ではトゥルーピークを管理しながら、知覚音量をLUFS目標値へ実際に調整します。各音源を全時間解析し、出力を再測定して検証します。結果はタグや対応プレーヤーに依存せず、ファイル間の音量がより揃い、ずれは通知され、元ファイルは変更されません。",
+        "guide_analysis_method": "LUFScaleは、基準コーパスで検証された唯一の方式である完全な履歴測定を自動的に使用します。",
+        "interface_ffmpeg_message": "内蔵FFmpeg音声エンジンが見つからないか使用できません。完全な配布アーカイブからLUFScaleを再インストールしてください。",
+        "version_changes": "• 初の自己完結版：FFmpegと必要な音声コーデックをLUFScale.appに内蔵しました。\n• 利用者はPython、Homebrew、FFmpegを別途インストールする必要がありません。\n• 固定・検証済みソースから構築し、ライセンス、チェックサム、正確なソースを配布物に同梱します。",
+    },
+    "hi": {
+        "guide_quality_priority_title": "LUFScale क्या करता है?",
+        "guide_quality_priority_body": "LUFScale फाइलों की loudness मापता है और Normalize के साथ true peak को नियंत्रित करते हुए perceived volume को LUFS target तक वास्तव में समायोजित करता है। हर source की पूरी अवधि का विश्लेषण होता है, फिर output को दोबारा मापकर जाँचा जाता है। परिणाम tags या compatible player पर निर्भर नहीं रहता: फाइलों के स्तर अधिक समान होते हैं, विचलन बताए जाते हैं और मूल फाइलें नहीं बदलतीं।",
+        "guide_analysis_method": "LUFScale reference corpus पर सत्यापित पूर्ण historical measurement का स्वतः उपयोग करता है।",
+        "interface_ffmpeg_message": "अंतर्निहित FFmpeg ऑडियो इंजन गायब है या उपयोग योग्य नहीं है। पूर्ण वितरण संग्रह से LUFScale दोबारा इंस्टॉल करें।",
+        "version_changes": "• पहला स्वायत्त संस्करण: FFmpeg और आवश्यक ऑडियो कोडेक LUFScale.app में शामिल हैं।\n• उपयोगकर्ता को Python, Homebrew या FFmpeg अलग से इंस्टॉल नहीं करना पड़ता।\n• इंजन निश्चित और सत्यापित स्रोतों से बनाया गया है; लाइसेंस, चेकसम और सटीक स्रोत वितरण के साथ हैं।",
+    },
+    "zh": {
+        "guide_quality_priority_title": "LUFScale 有什么作用？",
+        "guide_quality_priority_body": "LUFScale 测量文件响度；使用“标准化”时，它会在控制真峰值的同时，把感知音量实际调整到 LUFS 目标。每个源文件都会进行全时长分析，输出随后会被重新测量和验证。结果不依赖标签或兼容播放器：文件之间的音量更一致，偏差会被标出，原文件保持不变。",
+        "guide_analysis_method": "LUFScale 自动使用完整的历史测量方法，这是唯一在参考语料上验证过的方法。",
+        "interface_ffmpeg_message": "内置 FFmpeg 音频引擎缺失或无法使用。请从完整发行压缩包重新安装 LUFScale。",
+        "version_changes": "• 首个自包含版本：FFmpeg 和所需音频编解码器已集成到 LUFScale.app。\n• 用户无需另行安装 Python、Homebrew 或 FFmpeg。\n• 引擎由固定并验证过的源码构建；许可证、校验值和准确源码随发行包提供。",
+    },
+    "ko": {
+        "guide_quality_priority_title": "LUFScale의 기능",
+        "guide_quality_priority_body": "LUFScale는 파일의 라우드니스를 측정하고, 정규화 작업에서는 트루 피크를 제어하면서 체감 음량을 LUFS 목표로 실제 조정합니다. 각 원본의 전체 길이를 분석한 뒤 출력을 다시 측정하고 검증합니다. 결과는 태그나 호환 플레이어에 의존하지 않으며, 파일 간 음량이 더 일관되고 편차는 표시되며 원본은 변경되지 않습니다.",
+        "guide_analysis_method": "LUFScale는 기준 자료에서 검증된 유일한 방식인 전체 길이 이력 측정을 자동으로 사용합니다.",
+        "interface_ffmpeg_message": "내장 FFmpeg 오디오 엔진이 없거나 사용할 수 없습니다. 전체 배포 압축 파일에서 LUFScale을 다시 설치하십시오.",
+        "version_changes": "• 첫 독립 실행형 버전: FFmpeg와 필요한 오디오 코덱을 LUFScale.app에 내장했습니다.\n• 사용자는 Python, Homebrew 또는 FFmpeg를 별도로 설치할 필요가 없습니다.\n• 고정 및 검증된 소스로 엔진을 빌드하며 라이선스, 체크섬, 정확한 소스를 배포본에 포함합니다.",
+    },
+    "id": {
+        "guide_quality_priority_title": "Apa fungsi LUFScale?",
+        "guide_quality_priority_body": "LUFScale mengukur loudness berkas dan, dengan Normalisasi, benar-benar menyesuaikan volume yang terdengar menuju target LUFS sambil mengendalikan true peak. Setiap sumber dianalisis sepanjang durasinya, lalu keluaran diukur ulang dan diverifikasi. Hasilnya tidak bergantung pada tag atau pemutar yang kompatibel: tingkat antarberkas menjadi lebih konsisten, penyimpangan ditandai, dan berkas asli tetap utuh.",
+        "guide_analysis_method": "LUFScale secara otomatis memakai pengukuran historis penuh, satu-satunya metode yang telah divalidasi pada korpus acuan.",
+        "interface_ffmpeg_message": "Mesin audio FFmpeg bawaan hilang atau tidak dapat digunakan. Instal ulang LUFScale dari arsip distribusi lengkap.",
+        "version_changes": "• Edisi mandiri pertama: FFmpeg dan codec audio yang diperlukan terintegrasi dalam LUFScale.app.\n• Pengguna tidak perlu memasang Python, Homebrew, atau FFmpeg secara terpisah.\n• Mesin dibangun dari sumber yang ditetapkan dan diverifikasi; lisensi, checksum, dan sumber persis disertakan dalam distribusi.",
+    },
+    "tr": {
+        "guide_quality_priority_title": "LUFScale ne yapar?",
+        "guide_quality_priority_body": "LUFScale dosyaların ses yüksekliğini ölçer ve Normalleştir ile gerçek tepeyi denetlerken algılanan düzeyi LUFS hedefine fiziksel olarak ayarlar. Her kaynak baştan sona analiz edilir; ardından çıktı yeniden ölçülür ve doğrulanır. Sonuç etiketlere veya uyumlu bir oynatıcıya bağlı değildir: dosyalar arasındaki düzeyler daha tutarlı olur, sapmalar bildirilir ve özgün dosyalar değişmeden kalır.",
+        "guide_analysis_method": "LUFScale, referans derlem üzerinde doğrulanan tek yöntem olan tam tarihsel ölçümü otomatik olarak kullanır.",
+        "interface_ffmpeg_message": "Yerleşik FFmpeg ses motoru eksik veya kullanılamıyor. LUFScale’i eksiksiz dağıtım arşivinden yeniden kurun.",
+        "version_changes": "• İlk bağımsız sürüm: FFmpeg ve gerekli ses codec bileşenleri LUFScale.app içine yerleştirilmiştir.\n• Kullanıcının ayrıca Python, Homebrew veya FFmpeg kurması gerekmez.\n• Motor sabitlenmiş ve doğrulanmış kaynaklardan oluşturulur; lisanslar, sağlama toplamları ve tam kaynaklar dağıtıma eklenir.",
+    },
+}
