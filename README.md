@@ -1,6 +1,23 @@
 # LUFScale
 
-**No more volume jumps between your audio files: analyze and normalize them precisely.**
+<p align="center">
+  <strong>No more volume jumps between your audio files: analyze and normalize them with precision.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Lufscale/LUFScale/releases/latest"><img alt="Download for macOS" src="https://img.shields.io/badge/Download-macOS-111827?style=for-the-badge&logo=apple&logoColor=white"></a>
+  <a href="https://github.com/Lufscale/LUFScale/releases/latest"><img alt="Download for Windows" src="https://img.shields.io/badge/Download-Windows-0078D4?style=for-the-badge&logo=windows11&logoColor=white"></a>
+</p>
+
+<p align="center">
+  macOS 12 or later (Apple Silicon and Intel) &nbsp;•&nbsp; Windows 10 version 1809 or later and Windows 11 (x86-64)
+  <br>
+  <a href="https://lufscale.net/en">Website</a> &nbsp;•&nbsp;
+  <a href="https://github.com/Lufscale/LUFScale/issues">Report a problem</a> &nbsp;•&nbsp;
+  <a href="https://github.com/Lufscale/LUFScale/discussions">Ask a question</a>
+</p>
+
+![LUFScale interface showing audio loudness analysis and normalization](lufscale-interface.png)
 
 LUFScale is a free and open-source application for measuring and normalizing the perceived loudness of audio files. It can also analyze files without modifying them or write ReplayGain metadata for compatible players.
 
