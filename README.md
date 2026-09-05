@@ -13,7 +13,7 @@
   macOS 12 or later (Apple Silicon and Intel) &nbsp;•&nbsp; Windows 10 version 1809 or later and Windows 11 (x86-64)
   <br>
   <a href="https://lufscale.net/en">Website</a> &nbsp;•&nbsp;
-  <a href="https://youtu.be/6SjLgqinVVg">Video demo</a> &nbsp;•&nbsp;
+  <a href="https://lufscale.net/en#demo">Video demo (English)</a> &nbsp;•&nbsp;
   <a href="https://github.com/Lufscale/LUFScale/issues">Report a problem</a> &nbsp;•&nbsp;
   <a href="https://github.com/Lufscale/LUFScale/discussions">Ask a question</a>
 </p>
