@@ -386,7 +386,7 @@ def rich(value: str) -> str:
         bold_line = content.startswith("**") and content.endswith("**")
         if bold_line:
             content = content[2:-2]
-        escaped = html.escape(content) if content else "<br/>"
+        escaped = html.escape(content) if content else ""
         if bold_line:
             escaped = f"<b>{escaped}</b>"
         if indented:
@@ -941,7 +941,7 @@ def draw_simple_interface(
         c.drawString(
             x + 15,
             lower_y + lower_h - 10 - row * 7,
-            sanitize(f"audio_{row + 1}.mp3  -14.{row} LUFS"),
+            sanitize(f"audio_{row + 1}.{('mp3', 'flac', 'wav')[row % 3]}  -14.{row} LUFS"),
         )
     graph_x = x + 18 + width * 0.58
     graph_w = width - (graph_x - x) - 10
@@ -1637,7 +1637,12 @@ def draw_formula_card(
         min_size=6.0,
     )
     formula_top = y + height - 32
-    formula_height = 70
+    _, _, measured_formula_height = fit_paragraph(
+        formula, MATH_FONT, width - 43, 58,
+        max_size=10.5, min_size=6.2, alignment=TA_CENTER,
+        raw_html=True, leading_factor=1.95,
+    )
+    formula_height = measured_formula_height + 12
     formula_bottom = formula_top - formula_height
     c.setFillColor(FORMULA_PANEL)
     c.roundRect(
@@ -1880,29 +1885,21 @@ def generate_guide(
     destination = output_dir or (PROJECT_ROOT / "output" / "pdf")
     output = destination / PDF_GUIDES[language]
     output.parent.mkdir(parents=True, exist_ok=True)
-    document = canvas.Canvas(
-        str(output),
-        pagesize=A4,
-        pageCompression=1,
-        initialFontName=regular,
-        initialFontSize=8,
-        initialLeading=10,
-        lang=language,
-    )
-    document.setTitle(f"LUFScale {APP_VERSION} - {language_name}")
-    document.setSubject(f"LUFScale macOS visual guide - {language_name}")
-    document.setAuthor(f"LUFScale - {APP_AUTHOR}")
-    document.setCreator("LUFScale guide generator")
-    document.setProducer("ReportLab")
+    tools_directory = str(Path(__file__).resolve().parent)
+    if tools_directory not in sys.path:
+        sys.path.insert(0, tools_directory)
+    from graphic_document import build
+    namespace = globals()
 
-    page_quick_start(document, language, language_name, labels, regular, bold)
-    page_audio(document, language, language_name, labels, regular, bold)
-    page_processing(document, language, language_name, labels, regular, bold)
-    page_recommended(document, language, language_name, labels, regular, bold)
-    page_technical(document, language, language_name, labels, regular, bold)
-    page_formulas(document, language, language_name, labels, regular, bold)
-    page_compliance(document, language, language_name, labels, regular, bold)
-    document.save()
+    class GeneratorNamespace:
+        # Preserve the actual function globals when invoked through runpy.
+        def __getattr__(self, name):
+            return namespace[name]
+
+        def __setattr__(self, name, value):
+            namespace[name] = value
+
+    build(GeneratorNamespace(), output, language, language_name, regular, bold)
     return output
 
 

@@ -37,10 +37,10 @@ from lufscale.ui.settings import SettingsController
 
 class ReleaseRegressionTests(unittest.TestCase):
     def test_release_version(self) -> None:
-        self.assertEqual(APP_VERSION, "2.2.2")
+        self.assertEqual(APP_VERSION, "2.2.3")
         project_root = Path(__file__).parents[1]
-        self.assertTrue((project_root / "RELEASE_2.2.2.md").is_file())
-        self.assertTrue((project_root / "VALIDATION_2.2.2.md").is_file())
+        self.assertTrue((project_root / "RELEASE_2.2.3.md").is_file())
+        self.assertTrue((project_root / "VALIDATION_2.2.3.md").is_file())
         self.assertTrue(
             (project_root / "src/lufscale/i18n/translations_211100.py").is_file()
         )
@@ -278,10 +278,10 @@ class ReleaseRegressionTests(unittest.TestCase):
         self.assertIn("corresponding-source", community_script)
         self.assertIn("FFMPEG_BUILD_MANIFEST.json", community_script)
         self.assertIn("LUFSCALE_RUNTIME_MANIFEST.json", community_script)
-        self.assertIn("RELEASE_2.2.2.md", community_script)
-        self.assertIn("VALIDATION_2.2.2.md", community_script)
-        self.assertIn('PROJECT_ROOT / "RELEASE_2.2.2.md"', spec)
-        self.assertIn('PROJECT_ROOT / "VALIDATION_2.2.2.md"', spec)
+        self.assertIn("RELEASE_2.2.3.md", community_script)
+        self.assertIn("VALIDATION_2.2.3.md", community_script)
+        self.assertIn('PROJECT_ROOT / "RELEASE_2.2.3.md"', spec)
+        self.assertIn('PROJECT_ROOT / "VALIDATION_2.2.3.md"', spec)
         self.assertIn('"LUFSCALE_RUNTIME_MANIFEST.json"', spec)
 
     def test_bundled_ffmpeg_sources_are_pinned(self) -> None:
@@ -642,10 +642,10 @@ class ReleaseRegressionTests(unittest.TestCase):
                 "Apple Silicon", "Intel", "arm64", "x86_64",
                 "./Create_Community_Distribution_macOS.command",
                 "dist/LUFScale.app",
-                "dist/LUFScale-2.2.2-macOS-arm64-community.zip",
-                "dist/LUFScale-2.2.2-macOS-arm64-community.zip.sha256",
-                "dist/LUFScale-2.2.2-macOS-x86_64-community.zip",
-                "dist/LUFScale-2.2.2-macOS-x86_64-community.zip.sha256",
+                "dist/LUFScale-2.2.3-macOS-arm64-community.zip",
+                "dist/LUFScale-2.2.3-macOS-arm64-community.zip.sha256",
+                "dist/LUFScale-2.2.3-macOS-x86_64-community.zip",
+                "dist/LUFScale-2.2.3-macOS-x86_64-community.zip.sha256",
                 ".app (",
                 ".zip (",
                 ".sha256 (",
@@ -654,8 +654,8 @@ class ReleaseRegressionTests(unittest.TestCase):
             for forbidden in (
                 "Windows",
                 "Create_Offline_Installer_Windows.cmd",
-                "dist\\LUFScale-2.2.2-Setup-x64.exe",
-                "dist\\LUFScale-2.2.2-Portable-x64.exe",
+                "dist\\LUFScale-2.2.3-Setup-x64.exe",
+                "dist\\LUFScale-2.2.3-Portable-x64.exe",
             ):
                 self.assertNotIn(forbidden, build["title"] + build["body"], (language, forbidden))
             output_lines = build["body"].splitlines()
@@ -666,10 +666,10 @@ class ReleaseRegressionTests(unittest.TestCase):
             )
             self.assertEqual(output_lines.count("\t**dist/LUFScale.app**"), 2, language)
             for output_path in (
-                "\t**dist/LUFScale-2.2.2-macOS-arm64-community.zip**",
-                "\t**dist/LUFScale-2.2.2-macOS-arm64-community.zip.sha256**",
-                "\t**dist/LUFScale-2.2.2-macOS-x86_64-community.zip**",
-                "\t**dist/LUFScale-2.2.2-macOS-x86_64-community.zip.sha256**",
+                "\t**dist/LUFScale-2.2.3-macOS-arm64-community.zip**",
+                "\t**dist/LUFScale-2.2.3-macOS-arm64-community.zip.sha256**",
+                "\t**dist/LUFScale-2.2.3-macOS-x86_64-community.zip**",
+                "\t**dist/LUFScale-2.2.3-macOS-x86_64-community.zip.sha256**",
             ):
                 self.assertEqual(output_lines.count(output_path), 1, (language, output_path))
             self.assertEqual(
@@ -693,12 +693,12 @@ class ReleaseRegressionTests(unittest.TestCase):
             self.assertFalse(output_lines[app_indexes[1] - 1].strip(), language)
             self.assertEqual(
                 output_lines[app_indexes[0] + 1],
-                "\t**dist/LUFScale-2.2.2-macOS-arm64-community.zip**",
+                "\t**dist/LUFScale-2.2.3-macOS-arm64-community.zip**",
                 language,
             )
             self.assertEqual(
                 output_lines[app_indexes[1] + 1],
-                "\t**dist/LUFScale-2.2.2-macOS-x86_64-community.zip**",
+                "\t**dist/LUFScale-2.2.3-macOS-x86_64-community.zip**",
                 language,
             )
             self.assertEqual(
@@ -1021,7 +1021,7 @@ class ReleaseRegressionTests(unittest.TestCase):
             "LUFSCALE_RUNTIME_MANIFEST.json",
             "non-system external runtime",
             "reportlab==4.4.3",
-            "tools/generate_guides.py",
+            "tools/verify_approved_guides.py",
         ):
             self.assertIn(marker, build)
         for marker in (

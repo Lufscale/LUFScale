@@ -1,13 +1,13 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:247111a9-a486-4975-8c51-4375e2e7f32a",
+  "serialNumber": "urn:uuid:ee4bf555-99d4-48b7-9a8a-1eec0fd46f12",
   "version": 1,
   "metadata": {
     "component": {
       "type": "application",
       "name": "LUFScale for macOS",
-      "version": "2.2.2",
+      "version": "2.2.3",
       "authors": [
         {
           "name": "Perez Philippe"

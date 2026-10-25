@@ -310,18 +310,15 @@ from lufscale.version import APP_VERSION
 print(APP_VERSION)
 PY
 )"
-if [[ "$build_version" != "2.2.2" ]]; then
+if [[ "$build_version" != "2.2.3" ]]; then
     show_error "Unexpected application version: $build_version"
     exit 1
 fi
 
-build_stage 3 "Generating guides"
-echo "Generating the twelve macOS PDF guides…"
-/bin/rm -rf -- "output/pdf"
-/bin/mkdir -p "output/pdf"
-.build-macos/bin/python tools/generate_guides.py \
-    --output-dir "output/pdf" || {
-    show_error "PDF guide generation failed. Review the Terminal messages."
+build_stage 3 "Validating approved guides"
+echo "Verifying the twelve approved macOS PDF guides..."
+.build-macos/bin/python tools/verify_approved_guides.py || {
+    show_error "Approved PDF validation failed. Extract a fresh complete source kit."
     exit 1
 }
 pdf_guide_manifest=$(
@@ -360,7 +357,7 @@ if [[ ! -x "$bundled_ffmpeg_path" ]]; then
 fi
 export LUFSCALE_BUNDLED_FFMPEG="$PWD/$bundled_ffmpeg_path"
 
-for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.2.md VALIDATION_2.2.2.md; do
+for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.3.md VALIDATION_2.2.3.md; do
     if [[ ! -f "$release_file" ]]; then
         show_error "The $release_file distribution file is missing."
         exit 1
@@ -479,7 +476,7 @@ if ! "$bundled_ffmpeg" -hide_banner -filters 2>/dev/null | /usr/bin/grep -q " lo
     exit 1
 fi
 
-for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.2.md VALIDATION_2.2.2.md FFMPEG_DISTRIBUTION_NOTICE.txt FFMPEG_BUILD_MANIFEST.json LUFSCALE_RUNTIME_MANIFEST.json; do
+for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.3.md VALIDATION_2.2.3.md FFMPEG_DISTRIBUTION_NOTICE.txt FFMPEG_BUILD_MANIFEST.json LUFSCALE_RUNTIME_MANIFEST.json; do
     integrated_release_file=$(
         /usr/bin/find "dist/LUFScale.app" \
             -type f \

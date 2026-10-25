@@ -1,5 +1,15 @@
 # LUFScale release history
 
+## 2.2.3 — Updated documentation and built-in help
+
+- Revised PDF guides in all 12 languages, accessible through the application's Help button.
+- Clearer explanations of features shared by the supported audio formats and of MP3-specific behavior.
+- Corrected truncated text and improved readability.
+
+Audio processing and application features remain unchanged from version 2.2.2.
+
+[Release notes in all 12 languages](RELEASE_NOTES_2.2.3.md).
+
 ## 2.2.2 — Artwork, errors and result protection
 
 - File, Path and Details error columns can be resized independently.
@@ -20,3 +30,4 @@
 - The macOS FFmpeg build supports PNG artwork, resolving the investigated -22 error. Both Mac and Windows builds check artwork support.
 
 Earlier releases remain available in [GitHub Releases](https://github.com/Lufscale/LUFScale/releases).
+

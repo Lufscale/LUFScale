@@ -1,0 +1,19 @@
+{
+  "app_version": "2.2.3",
+  "platform": "macos",
+  "documentation_layout": "approved-r5",
+  "sha256": {
+    "Guide_LUFScale_EN.pdf": "2f717bc6e11d40de55715c37618a59dddf9bd5a23803ec789aa2e36c96ea2417",
+    "Guide_LUFScale_ES.pdf": "bca7d606edda4738fae10c257580ca5474721cfd33c1688c7c6d96b65c1a1b7b",
+    "Guide_LUFScale_FR.pdf": "71fe300100140066f4b8d44d6428349e297efb5e700c3dfada1c41facb437c7f",
+    "Guide_LUFScale_HI.pdf": "c0dca6ab64e72867e8d52f114c1a99dceca892c5b92fb6b75d344c3f895f79ce",
+    "Guide_LUFScale_ID.pdf": "fa5e4198f728a3fb2703455cc428443364df7834ee51f45a3c9ef3d1dcca221b",
+    "Guide_LUFScale_IT.pdf": "af2cce31b5a563946c15f93dcc42c41b7c731a8e823c235d0c8a0d69dace7e68",
+    "Guide_LUFScale_JA.pdf": "f6d66081fd8bbb381020083ea797f9694921809d4465a3b3d361875ee545b54f",
+    "Guide_LUFScale_KO.pdf": "86c7d5980441674ae9fb8c9d892cfc7cebc50fbd420f7b350a021a568d6cdee7",
+    "Guide_LUFScale_PT.pdf": "391b987ca221c008da8c6beebe3821ebd7cc68496f25dbbfd464a2a6d3c164f4",
+    "Guide_LUFScale_RU.pdf": "be3df6ff6460e1819abe0adcdaa8d820a59947ef33b777ec8aabf31070c0163e",
+    "Guide_LUFScale_TR.pdf": "4ca5363b1847a4972c56147668ecd395f5e4560e41081d3da69e4247a7704566",
+    "Guide_LUFScale_ZH.pdf": "ec58b0b06cf36b6aca949b86e6976076beacf6984186da0b194b8d0f70690d61"
+  }
+}

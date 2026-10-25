@@ -1,4 +1,4 @@
-# Install and open LUFScale 2.2.2 on Windows
+# Install and open LUFScale 2.2.3 on Windows
 
 ## Requirements
 
@@ -8,13 +8,13 @@ target, although Microsoft standard support for Windows 10 has ended.
 
 ## Install the application
 
-The single `LUFScale-2.2.2-Setup-x64.exe` file already contains LUFScale,
+The single `LUFScale-2.2.3-Setup-x64.exe` file already contains LUFScale,
 the Python runtime, PySide6/Qt, FFmpeg, the required audio codecs, PDF guides
 and licence notices. Installation requires no separate download, Python setup,
 FFmpeg setup or PowerShell command.
 
 1. Verify the installer against the adjacent `.sha256` file.
-2. Double-click `LUFScale-2.2.2-Setup-x64.exe`.
+2. Double-click `LUFScale-2.2.3-Setup-x64.exe`.
 3. Read and accept the GNU GPL licence.
 4. Follow the setup wizard. The desktop shortcut is optional.
 5. Open LUFScale from the Windows Start menu.
@@ -25,7 +25,7 @@ the uninstall shortcut in the LUFScale Start menu folder.
 
 ## Run the portable application without installation
 
-`LUFScale-2.2.2-Portable-x64.exe` contains the same application, Python/Qt
+`LUFScale-2.2.3-Portable-x64.exe` contains the same application, Python/Qt
 runtime, FFmpeg engine, codecs, guides and notices in one file. Verify its
 adjacent `.sha256` file, copy the executable to any compatible x86-64 Windows
 10/11 computer and double-click it. No installation, Python, FFmpeg or

@@ -68,16 +68,14 @@ if ($LASTEXITCODE -ne 0) { Fail "The pinned pip build dependency could not be pr
 if ($LASTEXITCODE -ne 0) { Fail "The pinned Windows build dependencies could not be installed." }
 
 $Version = (& $EnvironmentPython -c "import sys; sys.path.insert(0, 'src'); from lufscale.version import APP_VERSION; print(APP_VERSION)").Trim()
-if ($Version -ne "2.2.2") { Fail "Unexpected application version: $Version" }
+if ($Version -ne "2.2.3") { Fail "Unexpected application version: $Version" }
 
-Set-BuildStage 2 "Generating guides"
+Set-BuildStage 2 "Validating approved guides"
 $GuideDirectory = Join-Path $ProjectRoot "output\pdf"
-if (Test-Path $GuideDirectory) { Remove-Item -Recurse -Force $GuideDirectory }
-New-Item -ItemType Directory -Force -Path $GuideDirectory | Out-Null
-Write-Host "Generating the twelve Windows PDF guides..."
-& $EnvironmentPython tools\generate_guides.py --output-dir $GuideDirectory
+Write-Host "Verifying the twelve approved Windows PDF guides..."
+& $EnvironmentPython tools\verify_approved_guides.py
 if ($LASTEXITCODE -ne 0) {
-    Fail "PDF guide generation failed. Review the Python error shown above."
+    Fail "Approved PDF validation failed. Extract a fresh complete source kit."
 }
 if (-not (Test-Path $GuideDirectory)) {
     Fail "PDF guide generation did not create output\pdf."
@@ -125,8 +123,8 @@ foreach ($Encoder in @("libmp3lame", "flac", "pcm_s16le", "pcm_s16be", "pcm_s24l
 
 foreach ($Required in @(
     "LICENSE", "COPYRIGHT", "README.md", "OPEN_LUFSCALE_ON_WINDOWS.md",
-    "THIRD_PARTY_NOTICES.md", "SBOM.cdx.json", "RELEASE_2.2.2.md",
-    "VALIDATION_2.2.2.md", "FFMPEG_WINDOWS_BUILD_MANIFEST.json",
+    "THIRD_PARTY_NOTICES.md", "SBOM.cdx.json", "RELEASE_2.2.3.md",
+    "VALIDATION_2.2.3.md", "FFMPEG_WINDOWS_BUILD_MANIFEST.json",
     "FFMPEG_WINDOWS_DISTRIBUTION_NOTICE.txt"
 )) {
     if (-not (Test-Path (Join-Path $ApplicationDirectory $Required))) {
@@ -138,7 +136,7 @@ if (@(Get-ChildItem (Join-Path $ApplicationDirectory "output\pdf") -Filter *.pdf
 }
 
 if (Test-Path "build\LUFScale-Portable") { Remove-Item -Recurse -Force "build\LUFScale-Portable" }
-$PortableApplication = Join-Path $ProjectRoot "dist\LUFScale-2.2.2-Portable-x64.exe"
+$PortableApplication = Join-Path $ProjectRoot "dist\LUFScale-2.2.3-Portable-x64.exe"
 if (Test-Path $PortableApplication) { Remove-Item -Force $PortableApplication }
 
 Set-BuildStage 5 "Building the portable executable"
@@ -146,7 +144,7 @@ Write-Host "Building the self-contained single-file portable application..."
 & $EnvironmentPython -m PyInstaller --clean --noconfirm packaging\windows\LUFScale-Portable.spec
 if ($LASTEXITCODE -ne 0) { Fail "The portable PyInstaller build failed." }
 if (-not (Test-Path $PortableApplication)) {
-    Fail "PyInstaller did not create dist\LUFScale-2.2.2-Portable-x64.exe."
+    Fail "PyInstaller did not create dist\LUFScale-2.2.3-Portable-x64.exe."
 }
 & $EnvironmentPython tools\verify_application_icon.py windows $PortableApplication assets\branding\LUFScale.ico
 if ($LASTEXITCODE -ne 0) { Fail "The application icon is missing or invalid." }

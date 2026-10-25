@@ -33,7 +33,7 @@ MACOS_GUIDES = [GUIDES_DIR / name for name in sorted(EXPECTED_GUIDES)]
 a = Analysis(
     [str(PROJECT_ROOT / "app.py")],
     pathex=[str(PROJECT_ROOT / "src")],
-    # LUFScale 2.2.2 ships the verified native FFmpeg built by
+    # LUFScale 2.2.3 ships the verified native FFmpeg built by
     # tools/build_bundled_ffmpeg_macos.py.  imageio-ffmpeg remains excluded so
     # PyInstaller cannot silently add a second, unrelated platform binary.
     binaries=[(str(BUNDLED_FFMPEG), ".")],
@@ -47,8 +47,8 @@ a = Analysis(
         (str(PROJECT_ROOT / "OPEN_LUFSCALE_ON_MACOS.md"), "."),
         (str(PROJECT_ROOT / "THIRD_PARTY_NOTICES.md"), "."),
         (str(PROJECT_ROOT / "SBOM.cdx.json"), "."),
-        (str(PROJECT_ROOT / "RELEASE_2.2.2.md"), "."),
-        (str(PROJECT_ROOT / "VALIDATION_2.2.2.md"), "."),
+        (str(PROJECT_ROOT / "RELEASE_2.2.3.md"), "."),
+        (str(PROJECT_ROOT / "VALIDATION_2.2.3.md"), "."),
         (str(PROJECT_ROOT / "third_party_licenses"), "third_party_licenses"),
         (
             str(

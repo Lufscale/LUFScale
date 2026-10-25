@@ -1,6 +1,6 @@
 ; LUFScale offline installer for Windows 10/11 x86-64.
 #define MyAppName "LUFScale"
-#define MyAppVersion "2.2.2"
+#define MyAppVersion "2.2.3"
 #define MyAppPublisher "Perez Philippe"
 #define MyAppExeName "LUFScale.exe"
 
@@ -10,7 +10,7 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-VersionInfoVersion=2.2.2.0
+VersionInfoVersion=2.2.3.0
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription=LUFScale offline installer
 VersionInfoProductName={#MyAppName}
@@ -23,7 +23,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0.17763
 OutputDir=..\..\dist
-OutputBaseFilename=LUFScale-2.2.2-Setup-x64
+OutputBaseFilename=LUFScale-2.2.3-Setup-x64
 SetupIconFile=..\..\assets\branding\LUFScale.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 LicenseFile=..\..\LICENSE

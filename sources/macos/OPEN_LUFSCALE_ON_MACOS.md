@@ -1,4 +1,4 @@
-# Open the LUFScale 2.2.2 community distribution on macOS
+# Open the LUFScale 2.2.3 community distribution on macOS
 
 ## No additional runtime installation
 

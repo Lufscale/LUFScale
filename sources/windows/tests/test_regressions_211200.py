@@ -71,9 +71,9 @@ class WindowsPortRegressionTests(unittest.TestCase):
         self.assertNotIn("CheckStateRole", delegate + language_combo + header)
 
     def test_release_identity_and_records(self) -> None:
-        self.assertEqual(APP_VERSION, "2.2.2")
-        self.assertTrue((PROJECT_ROOT / "RELEASE_2.2.2.md").is_file())
-        self.assertTrue((PROJECT_ROOT / "VALIDATION_2.2.2.md").is_file())
+        self.assertEqual(APP_VERSION, "2.2.3")
+        self.assertTrue((PROJECT_ROOT / "RELEASE_2.2.3.md").is_file())
+        self.assertTrue((PROJECT_ROOT / "VALIDATION_2.2.3.md").is_file())
         self.assertFalse((PROJECT_ROOT / "RELEASE_2.1.8.md").exists())
         self.assertFalse((PROJECT_ROOT / "VALIDATION_2.1.8.md").exists())
         sbom = json.loads((PROJECT_ROOT / "SBOM.cdx.json").read_text("utf-8"))
@@ -83,10 +83,10 @@ class WindowsPortRegressionTests(unittest.TestCase):
             PROJECT_ROOT / "packaging/windows/version_info.txt"
         ).read_text("utf-8")
         for marker in (
-            "filevers=(2, 2, 2, 0)",
-            "prodvers=(2, 2, 2, 0)",
-            "StringStruct('FileVersion', '2.2.2')",
-            "StringStruct('ProductVersion', '2.2.2')",
+            "filevers=(2, 2, 3, 0)",
+            "prodvers=(2, 2, 3, 0)",
+            "StringStruct('FileVersion', '2.2.3')",
+            "StringStruct('ProductVersion', '2.2.3')",
         ):
             self.assertIn(marker, version_info)
 
@@ -394,13 +394,13 @@ class WindowsPortRegressionTests(unittest.TestCase):
             "[Environment]::Is64BitOperatingSystem",
             "pyinstaller==6.21.0",
             "reportlab==4.4.3",
-            "generate_guides.py --output-dir",
+            "verify_approved_guides.py",
             "prepare_bundled_ffmpeg_windows.py",
             "LUFSCALE_BUNDLED_FFMPEG",
             "packaging\\windows\\LUFScale.spec",
             "packaging\\windows\\LUFScale-Portable.spec",
             "pyi-archive_viewer.exe",
-            "LUFScale-2.2.2-Portable-x64.exe",
+            "LUFScale-2.2.3-Portable-x64.exe",
             "exactly one ffmpeg.exe",
             "loudnorm",
             "libmp3lame",
@@ -445,8 +445,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
             "innosetup-$InnoVersion-install.log",
             "ISCC.exe",
             "Get-FileHash -Algorithm SHA256",
-            "LUFScale-2.2.2-Setup-x64.exe",
-            "LUFScale-2.2.2-Portable-x64.exe",
+            "LUFScale-2.2.3-Setup-x64.exe",
+            "LUFScale-2.2.3-Portable-x64.exe",
             "$PortableChecksum",
         ):
             self.assertIn(marker, installer_builder)
@@ -477,11 +477,11 @@ class WindowsPortRegressionTests(unittest.TestCase):
     def test_offline_installer_definition_contains_the_full_payload(self) -> None:
         setup = (PROJECT_ROOT / "packaging/windows/LUFScale.iss").read_text("utf-8")
         for marker in (
-            '#define MyAppVersion "2.2.2"',
+            '#define MyAppVersion "2.2.3"',
             "PrivilegesRequired=lowest",
             "ArchitecturesAllowed=x64compatible",
             "MinVersion=10.0.17763",
-            "OutputBaseFilename=LUFScale-2.2.2-Setup-x64",
+            "OutputBaseFilename=LUFScale-2.2.3-Setup-x64",
             'Source: "..\\..\\dist\\LUFScale\\*"',
             'Filename: "{uninstallexe}"',
             "desktopicon",
@@ -516,7 +516,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
             PROJECT_ROOT / "packaging/windows/LUFScale-Portable.spec"
         ).read_text("utf-8")
         for marker in (
-            'name="LUFScale-2.2.2-Portable-x64"',
+            'name="LUFScale-2.2.3-Portable-x64"',
             "a.binaries",
             "a.datas",
             "console=False",
@@ -604,7 +604,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
                 "Windows",
                 "x86-64",
                 "Python",
-                "LUFScale-2.2.2-Setup-x64.exe",
+                "LUFScale-2.2.3-Setup-x64.exe",
                 "SmartScreen",
             ):
                 self.assertIn(marker, body, (language, marker))
@@ -747,7 +747,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
             "GUIDE_IDENTITY_LABELS",
             '"guide_license_body"',
             "PLATFORM_BUILD_COPY[language]",
-            "LUFScale Windows visual guide",
+            "LUFScale for Windows",
             "output_dir.resolve()",
         ):
             self.assertIn(marker, generator)
@@ -762,10 +762,10 @@ class WindowsPortRegressionTests(unittest.TestCase):
             for marker in (
                 "Windows", "x64",
                 "Create_Offline_Installer_Windows.cmd",
-                "dist\\LUFScale-2.2.2-Setup-x64.exe",
-                "dist\\LUFScale-2.2.2-Setup-x64.exe.sha256",
-                "dist\\LUFScale-2.2.2-Portable-x64.exe",
-                "dist\\LUFScale-2.2.2-Portable-x64.exe.sha256",
+                "dist\\LUFScale-2.2.3-Setup-x64.exe",
+                "dist\\LUFScale-2.2.3-Setup-x64.exe.sha256",
+                "dist\\LUFScale-2.2.3-Portable-x64.exe",
+                "dist\\LUFScale-2.2.3-Portable-x64.exe.sha256",
                 ".exe Setup (",
                 ".exe Portable (",
                 ".sha256 (",
@@ -776,8 +776,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
                 "Intel",
                 "./Create_Community_Distribution_macOS.command",
                 "dist/LUFScale.app",
-                "dist/LUFScale-2.2.2-macOS-arm64-community.zip",
-                "dist/LUFScale-2.2.2-macOS-x86_64-community.zip",
+                "dist/LUFScale-2.2.3-macOS-arm64-community.zip",
+                "dist/LUFScale-2.2.3-macOS-x86_64-community.zip",
             ):
                 self.assertNotIn(forbidden, build["title"] + build["body"], (language, forbidden))
             output_lines = build["body"].splitlines()
@@ -787,10 +787,10 @@ class WindowsPortRegressionTests(unittest.TestCase):
                 language,
             )
             for output_path in (
-                "\t**dist\\LUFScale-2.2.2-Setup-x64.exe**",
-                "\t**dist\\LUFScale-2.2.2-Setup-x64.exe.sha256**",
-                "\t**dist\\LUFScale-2.2.2-Portable-x64.exe**",
-                "\t**dist\\LUFScale-2.2.2-Portable-x64.exe.sha256**",
+                "\t**dist\\LUFScale-2.2.3-Setup-x64.exe**",
+                "\t**dist\\LUFScale-2.2.3-Setup-x64.exe.sha256**",
+                "\t**dist\\LUFScale-2.2.3-Portable-x64.exe**",
+                "\t**dist\\LUFScale-2.2.3-Portable-x64.exe.sha256**",
             ):
                 self.assertEqual(output_lines.count(output_path), 1, (language, output_path))
             self.assertEqual(
@@ -801,11 +801,11 @@ class WindowsPortRegressionTests(unittest.TestCase):
             command_index = output_lines.index("\t**.\\Create_Offline_Installer_Windows.cmd**")
             self.assertFalse(output_lines[command_index - 1].strip(), language)
             self.assertFalse(output_lines[command_index + 1].strip(), language)
-            setup_index = output_lines.index("\t**dist\\LUFScale-2.2.2-Setup-x64.exe**")
+            setup_index = output_lines.index("\t**dist\\LUFScale-2.2.3-Setup-x64.exe**")
             self.assertFalse(output_lines[setup_index - 1].strip(), language)
-            self.assertEqual(output_lines[setup_index + 1], "\t**dist\\LUFScale-2.2.2-Setup-x64.exe.sha256**", language)
-            self.assertEqual(output_lines[setup_index + 2], "\t**dist\\LUFScale-2.2.2-Portable-x64.exe**", language)
-            self.assertEqual(output_lines[setup_index + 3], "\t**dist\\LUFScale-2.2.2-Portable-x64.exe.sha256**", language)
+            self.assertEqual(output_lines[setup_index + 1], "\t**dist\\LUFScale-2.2.3-Setup-x64.exe.sha256**", language)
+            self.assertEqual(output_lines[setup_index + 2], "\t**dist\\LUFScale-2.2.3-Portable-x64.exe**", language)
+            self.assertEqual(output_lines[setup_index + 3], "\t**dist\\LUFScale-2.2.3-Portable-x64.exe.sha256**", language)
             self.assertFalse(output_lines[setup_index + 4].strip(), language)
             self.assertTrue(output_lines[setup_index + 5].startswith(".exe Setup ("), language)
             self.assertTrue(output_lines[setup_index + 6].startswith(".exe Portable ("), language)
@@ -849,11 +849,12 @@ class WindowsPortRegressionTests(unittest.TestCase):
             self.assertTrue(font.is_file(), filename)
             self.assertGreater(font.stat().st_size, 100_000, filename)
 
-    def test_windows_builder_recreates_and_validates_guide_directory(self) -> None:
+    def test_windows_builder_preserves_and_validates_approved_guides(self) -> None:
         build = (
             PROJECT_ROOT / "tools/Internal_Application_Builder_Windows.ps1"
         ).read_text("utf-8")
-        self.assertIn("New-Item -ItemType Directory -Force -Path $GuideDirectory", build)
+        self.assertIn("verify_approved_guides.py", build)
+        self.assertNotIn("Remove-Item -Recurse -Force $GuideDirectory", build)
         self.assertIn("if ($LASTEXITCODE -ne 0)", build)
         self.assertIn("if (-not (Test-Path $GuideDirectory))", build)
 
@@ -893,14 +894,17 @@ class WindowsPortRegressionTests(unittest.TestCase):
         )
         self.assertEqual(
             sorted(path.name for path in (PROJECT_ROOT / "packaging").iterdir()),
-            ["generated", "windows"],
+            ["approved-guides.json", "generated", "windows"],
         )
         self.assertEqual(
             sorted(path.name for path in (PROJECT_ROOT / "tools").glob("*.py")),
             [
                 "generate_guides.py",
+                "graphic_document.py",
+                "guide_scope.py",
                 "prepare_bundled_ffmpeg_windows.py",
                 "verify_application_icon.py",
+                "verify_approved_guides.py",
             ],
         )
         self.assertEqual(
@@ -912,8 +916,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
     def test_public_records_are_windows_only(self) -> None:
         paths = [
             PROJECT_ROOT / "README.md",
-            PROJECT_ROOT / "RELEASE_2.2.2.md",
-            PROJECT_ROOT / "VALIDATION_2.2.2.md",
+            PROJECT_ROOT / "RELEASE_2.2.3.md",
+            PROJECT_ROOT / "VALIDATION_2.2.3.md",
             PROJECT_ROOT / "THIRD_PARTY_NOTICES.md",
             PROJECT_ROOT / "SBOM.cdx.json",
             PROJECT_ROOT / "packaging/generated/README.md",

@@ -1,4 +1,4 @@
-"""Regression coverage for the 2.2.2 import and artwork fixes."""
+"""Regression coverage for the 2.2.3 import and artwork fixes."""
 import contextlib
 import io
 import runpy

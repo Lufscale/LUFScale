@@ -525,7 +525,7 @@ def main() -> int:
     corresponding_source = generated / "corresponding-source"
     # Autoconf/Automake projects in the audio stack do not all preserve paths
     # containing spaces or shell metacharacters.  The downloaded project may
-    # legitimately be named e.g. "LUFScale-2.2.2-open-source (1)", so all
+    # legitimately be named e.g. "LUFScale-2.2.3-open-source (1)", so all
     # compilation inputs, outputs and prefixes live below a private, stable,
     # whitespace-free macOS temporary path instead of below PROJECT_ROOT.
     safe_build_base = Path("/private/tmp") / (

@@ -1,4 +1,4 @@
-# LUFScale 2.2.2 for macOS - third-party notices
+# LUFScale 2.2.3 for macOS - third-party notices
 
 This inventory accompanies the GPL-3.0-or-later LUFScale source and binary
 packages. It must remain with every binary distribution. Original LUFScale

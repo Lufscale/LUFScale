@@ -1,0 +1,19 @@
+{
+  "app_version": "2.2.3",
+  "platform": "windows",
+  "documentation_layout": "approved-r5",
+  "sha256": {
+    "Guide_LUFScale_EN.pdf": "ce5c5a2e399bcdb6b61be0de09ea318ccf16c96a89472eb512b53b6e3cfc70a3",
+    "Guide_LUFScale_ES.pdf": "4d0c75e2d1bbc49c5a2c22db988b6d93e37458ed05cb5cb49d79c78ad5f30d75",
+    "Guide_LUFScale_FR.pdf": "6623c6c319af1c0b31a66c4592c678ec5976a1dd360d7931fd79ed631ffcb513",
+    "Guide_LUFScale_HI.pdf": "63e7b0ab49cb725bc9529985018e55126ffb3ed751da4989af792f4c9af49582",
+    "Guide_LUFScale_ID.pdf": "9ff6aa5cb40ddfe140e988cda8aa3d5dc4f6c8038a47d6f4965ba58581d34440",
+    "Guide_LUFScale_IT.pdf": "919a0c388804737dc1afd60878089ca323134593e40ca28ac79583f90b851c56",
+    "Guide_LUFScale_JA.pdf": "f1227c7e3c28eb5f8076315e77f4f1e369f6cd45c60ef554f6c091a45e3bc470",
+    "Guide_LUFScale_KO.pdf": "6eb2cc18848db28f8f6c1433c44490460025cb90090def36e1d555cdf71aed39",
+    "Guide_LUFScale_PT.pdf": "7cfbdc723699db5e8b78ca885816e77b633118d0133df719a0edc5031fbe744a",
+    "Guide_LUFScale_RU.pdf": "6ef97468830e2cf23ce022b6c689ff067c2f701a01b4ecfe78fa3587e9b6eb29",
+    "Guide_LUFScale_TR.pdf": "6cf24e2a8e7ffb1ee43d9d4340506dbbbb6901eef640bb80481cabc428b82f81",
+    "Guide_LUFScale_ZH.pdf": "341c8e909979285f1b19d15dce5b7db2654d596bd6784cb060deb2c613114235"
+  }
+}

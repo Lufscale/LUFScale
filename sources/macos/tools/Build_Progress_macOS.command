@@ -19,7 +19,7 @@ stop_tree() {
     kill -TERM "$parent" 2>/dev/null || true
 }
 
-printf 'LUFScale 2.2.2 — macOS build\n'
+printf 'LUFScale 2.2.3 — macOS build\n'
 printf 'One progress bar per stage; animation indicates recent build activity.\n'
 printf 'No new messages does not necessarily mean the build is stalled.\n'
 printf 'If macOS opens the Apple developer tools installer, complete it to continue.\n'

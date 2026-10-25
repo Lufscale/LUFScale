@@ -24,7 +24,7 @@ function Write-LiveLine([string]$Text) {
 $Worker = $null
 $Result = 1
 $Watch = [Diagnostics.Stopwatch]::StartNew()
-Write-Host 'LUFScale 2.2.2 - Windows build'
+Write-Host 'LUFScale 2.2.3 - Windows build'
 Write-Host 'One progress bar per stage; animation indicates recent build activity.'
 Write-Host 'No new messages does not necessarily mean the build is stalled.'
 Write-Host "Logs: $OutputLog and $ErrorLog"

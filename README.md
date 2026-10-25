@@ -46,7 +46,7 @@ The community applications are currently neither notarized with an Apple Develop
 
 ## Source code
 
-Version 2.2.2 has two editions that were built and validated separately:
+Version 2.2.3 has two editions that were built and validated separately:
 
 - [`sources/macos`](sources/macos): the application and build tools for macOS;
 - [`sources/windows`](sources/windows): the application and build tools for Windows.
@@ -69,4 +69,5 @@ Copyright © 2026 Perez Philippe.
 
 ## Release history
 
-See [CHANGELOG.md](CHANGELOG.md) for the changes in 2.1.13, 2.2.1 and 2.2.2.
+See [CHANGELOG.md](CHANGELOG.md) for the release history and [2.2.3 notes in all 12 languages](RELEASE_NOTES_2.2.3.md).
+

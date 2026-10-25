@@ -57,7 +57,7 @@ release_folder="$release_tmp/$release_name"
 /bin/mkdir -p "$release_folder"
 
 /usr/bin/ditto "$app_path" "$release_folder/LUFScale.app"
-for file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.2.md VALIDATION_2.2.2.md; do
+for file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.3.md VALIDATION_2.2.3.md; do
     /usr/bin/ditto "$file" "$release_folder/$file"
 done
 /usr/bin/ditto "packaging/generated/FFMPEG_DISTRIBUTION_NOTICE.txt" \
