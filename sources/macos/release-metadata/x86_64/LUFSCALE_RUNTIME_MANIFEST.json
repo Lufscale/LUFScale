@@ -2,7 +2,7 @@
   "schema": 1,
   "application": {
     "name": "LUFScale",
-    "version": "2.2.2"
+    "version": "2.2.3"
   },
   "platform": {
     "system": "macOS",
@@ -15,13 +15,13 @@
     "psutil": "7.2.2",
     "ffmpeg": {
       "filename": "ffmpeg",
-      "sha256": "a553604719f390fc13c5c907bf5fe4efd21cbb094389296b69d309840aa429ed"
+      "sha256": "1d0dd44d41f58f7432c2de6740f32b501124d4f82b7ec52457c5654f58a8b1ed"
     }
   },
   "packager": {
     "name": "PyInstaller",
     "version": "6.21.0",
-    "isolated_python": "/Users/philippe/Downloads/LUFScale-2.2.2-macOS-open-source/.build-tools/python/cpython-3.13.15-macos-x86_64-none/bin/python3.13"
+    "isolated_python": "/Users/philippe/Downloads/LUFScale-2.2.3-macOS-open-source/.build-tools/python/cpython-3.13.15-macos-x86_64-none/bin/python3.13"
   },
   "end_user_external_runtime_required": false
 }

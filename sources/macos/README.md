@@ -1,4 +1,4 @@
-# LUFScale 2.2.2 for macOS
+# LUFScale 2.2.3 for macOS
 
 This repository is the independent macOS edition of LUFScale. It measures and
 normalizes perceived audio loudness while prioritizing a stable final level,
@@ -63,18 +63,18 @@ Python is not installed in `/Library`, no shell path is modified, and no
 administrator password is required for the Python preparation step.
 
 The script then creates an isolated build environment, activates its included
-`pkg-config` helper (including LAME 4.0's version probe), generates the twelve
-guides, validates the native C ABI before configuring LAME, compiles and
+`pkg-config` helper (including LAME 4.0's version probe), verifies the twelve
+approved guides, validates the native C ABI before configuring LAME, compiles and
 validates FFmpeg, packages Python and
 PySide6/Qt, verifies the autonomous bundle, and writes these results to `dist`.
 If an upstream configure script fails, its complete log is preserved below
 `packaging/generated/build-diagnostics`. Successful results are:
 
 - `LUFScale.app` for local validation;
-- `LUFScale-2.2.2-macOS-<architecture>-community.zip` for publication;
+- `LUFScale-2.2.3-macOS-<architecture>-community.zip` for publication;
 - the adjacent `.sha256` checksum.
 
-See `VALIDATION_2.2.2.md` before publication. This community build uses an
+See `VALIDATION_2.2.3.md` before publication. This community build uses an
 ad-hoc internal signature and is neither identified with Apple Developer ID
 nor notarized.
 
@@ -108,7 +108,7 @@ external FFmpeg installation.
 This macOS project deliberately contains no Windows builder, installer,
 deployment guide or Windows PDF set.
 
-## Build progress in 2.2.2
+## Build progress (introduced in 2.2.2)
 
 The public build launcher displays milestone progress instead of streaming
 commands. The bar counts completed stages, not estimated elapsed time.
@@ -123,6 +123,10 @@ preserved. The other eleven languages remain selectable inside the application.
 Each application language retains its dedicated PDF guide. Build and installation materials are in English. Activity indicators read `Activity detected` and
 `No new messages for Xs`; silence alone does not mean the build is stalled.
 
-## Processing recovery (2.2.2)
+## Processing recovery (introduced in 2.2.2)
 
 Completed audio is staged locally before delivery to the selected output folder. Allow sufficient local free space for parallel jobs. If delivery fails, processing stops and the error log gives the path of any retained completed audio. The adjacent destination.json records the intended destination. Check storage access before manually copying recovered output or running the batch again. Original source files are never edited by artwork repair.
+
+## Documentation update in 2.2.3
+
+This release integrates the approved twelve-language PDF guides. Audio processing, application controls, language choices and dependency pins are unchanged from 2.2.2. The build verifies the bundled PDFs against `packaging/approved-guides.json` and embeds them without regenerating them. The generator sources remain available for future documentation edits. The maintainer reported successful native tests of 2.2.3; see VALIDATION_2.2.3.md.

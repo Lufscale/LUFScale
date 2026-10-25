@@ -1,9 +1,9 @@
-LUFScale 2.2.2 — self-contained FFmpeg engine
+LUFScale 2.2.3 — self-contained FFmpeg engine
 Architecture: arm64
 Minimum macOS target: 12.0
-FFmpeg: 7.1.5, binary SHA-256: 5a1693b9907ad47ad0a71fc467e00aa841b2202c49a34912c5eb147e540add16
+FFmpeg: 7.1.5, binary SHA-256: 9e78abe5bc565599c6aa91a3c7301b3fa10f206875622a9401709a19d21d19a4
 Statically linked libraries: LAME 4.0, libogg 1.3.6, libvorbis 1.3.7, Opus 1.6.1.
 LGPL build: neither --enable-gpl nor --enable-nonfree.
 The complete manifest, licenses, and exact source archives accompany the community distribution.
 
-configuration: --prefix=/private/tmp/lufscale-2.2.2-ffmpeg-502/arm64/prefix/ffmpeg --arch=aarch64 --target-os=darwin --disable-shared --enable-static --disable-debug --disable-doc --disable-ffplay --disable-ffprobe --disable-network --disable-autodetect --enable-zlib --enable-decoder=png --enable-neon --enable-libmp3lame --enable-libvorbis --enable-libopus --pkg-config-flags=--static --extra-cflags='-O2 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -I/private/tmp/lufscale-2.2.2-ffmpeg-502/arm64/prefix/include' --extra-ldflags='-arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -L/private/tmp/lufscale-2.2.2-ffmpeg-502/arm64/prefix/lib'
+configuration: --prefix=/private/tmp/lufscale-2.2.3-ffmpeg-502/arm64/prefix/ffmpeg --arch=aarch64 --target-os=darwin --disable-shared --enable-static --disable-debug --disable-doc --disable-ffplay --disable-ffprobe --disable-network --disable-autodetect --enable-zlib --enable-decoder=png --enable-neon --enable-libmp3lame --enable-libvorbis --enable-libopus --pkg-config-flags=--static --extra-cflags='-O2 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -I/private/tmp/lufscale-2.2.3-ffmpeg-502/arm64/prefix/include' --extra-ldflags='-arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=12.0 -L/private/tmp/lufscale-2.2.3-ffmpeg-502/arm64/prefix/lib'

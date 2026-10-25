@@ -1,13 +1,13 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:303d8781-336d-4b68-b0a0-20be8167f903",
+  "serialNumber": "urn:uuid:946b2e3f-d203-4348-920d-8352d89fe59f",
   "version": 1,
   "metadata": {
     "component": {
       "type": "application",
       "name": "LUFScale for Windows",
-      "version": "2.2.2",
+      "version": "2.2.3",
       "authors": [
         {
           "name": "Perez Philippe"

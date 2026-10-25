@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0"
 
-echo LUFScale 2.2.2 - offline installer and portable application builder
+echo LUFScale 2.2.3 - offline installer and portable application builder
 echo.
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0tools\Build_Progress_Windows.ps1"
 set "BUILD_RESULT=%ERRORLEVEL%"

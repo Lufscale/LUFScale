@@ -1,4 +1,4 @@
-"""Final standalone translation catalogue for LUFScale 2.2.2 on Windows."""
+"""Final standalone translation catalogue for LUFScale 2.2.3 on Windows."""
 
 from __future__ import annotations
 
@@ -192,7 +192,7 @@ TEXTS = {'activity_cancelled': ('Activité : traitement annulé', 'Activity: pro
  'guide_analyze_prediction_title': ('Estimation sans sortie', 'Estimate without output'),
  'guide_build_body': ('Sous Windows 10 1809 ou ultérieur, ou Windows 11 x86-64 :\n'
                       '\n'
-                      '1. Téléchargez « LUFScale-2.2.2-Setup-x64.exe » avec son fichier SHA-256.\n'
+                      '1. Téléchargez « LUFScale-2.2.3-Setup-x64.exe » avec son fichier SHA-256.\n'
                       '2. Vérifiez le SHA-256, puis double-cliquez sur l’installateur.\n'
                       '3. Lisez et acceptez la licence GNU GPL, puis suivez l’assistant.\n'
                       '4. Lancez LUFScale depuis le menu Démarrer.\n'
@@ -205,7 +205,7 @@ TEXTS = {'activity_cancelled': ('Activité : traitement annulé', 'Activity: pro
                       'somme, Windows SmartScreen peut demander une confirmation.',
                       'On x86-64 Windows 10 1809 or later, or Windows 11:\n'
                       '\n'
-                      '1. Download “LUFScale-2.2.2-Setup-x64.exe” with its SHA-256 file.\n'
+                      '1. Download “LUFScale-2.2.3-Setup-x64.exe” with its SHA-256 file.\n'
                       '2. Verify SHA-256, then double-click the installer.\n'
                       '3. Read and accept the GNU GPL licence, then follow the wizard.\n'
                       '4. Start LUFScale from the Start menu.\n'
@@ -938,7 +938,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'Estimación sin salida',
         'guide_build_body': 'En Windows 10 1809 o posterior, o Windows 11 x86-64:\n'
                             '\n'
-                            '1. Descargue «LUFScale-2.2.2-Setup-x64.exe» y su archivo SHA-256.\n'
+                            '1. Descargue «LUFScale-2.2.3-Setup-x64.exe» y su archivo SHA-256.\n'
                             '2. Verifique el SHA-256 y haga doble clic en el instalador.\n'
                             '3. Lea y acepte la licencia GNU GPL y siga el asistente.\n'
                             '4. Inicie LUFScale desde el menú Inicio.\n'
@@ -1474,7 +1474,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'बिना आउटपुट का अनुमान',
         'guide_build_body': 'Windows 10 1809 या बाद के अथवा Windows 11 x86-64 पर:\n'
                             '\n'
-                            '1. “LUFScale-2.2.2-Setup-x64.exe” और उसकी SHA-256 फ़ाइल डाउनलोड करें।\n'
+                            '1. “LUFScale-2.2.3-Setup-x64.exe” और उसकी SHA-256 फ़ाइल डाउनलोड करें।\n'
                             '2. SHA-256 जाँचें और इंस्टॉलर पर डबल-क्लिक करें।\n'
                             '3. GNU GPL लाइसेंस पढ़कर स्वीकार करें और विज़ार्ड का पालन करें।\n'
                             '4. Start मेनू से LUFScale खोलें।\n'
@@ -1965,7 +1965,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'Perkiraan tanpa keluaran',
         'guide_build_body': 'Pada Windows 10 1809 atau lebih baru, atau Windows 11 x86-64:\n'
                             '\n'
-                            '1. Unduh “LUFScale-2.2.2-Setup-x64.exe” beserta berkas SHA-256.\n'
+                            '1. Unduh “LUFScale-2.2.3-Setup-x64.exe” beserta berkas SHA-256.\n'
                             '2. Periksa SHA-256, lalu klik dua kali pemasang.\n'
                             '3. Baca dan setujui lisensi GNU GPL, lalu ikuti wisaya.\n'
                             '4. Jalankan LUFScale dari menu Start.\n'
@@ -2478,7 +2478,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'Stima senza uscita',
         'guide_build_body': 'In Windows 10 1809 o successivo, oppure Windows 11 x86-64:\n'
                             '\n'
-                            '1. Scaricare «LUFScale-2.2.2-Setup-x64.exe» e il relativo file SHA-256.\n'
+                            '1. Scaricare «LUFScale-2.2.3-Setup-x64.exe» e il relativo file SHA-256.\n'
                             '2. Verificare SHA-256, quindi fare doppio clic sul programma di installazione.\n'
                             '3. Leggere e accettare la licenza GNU GPL e seguire la procedura guidata.\n'
                             '4. Avviare LUFScale dal menu Start.\n'
@@ -3000,7 +3000,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': '出力なしの推定',
         'guide_build_body': 'Windows 10 1809以降またはWindows 11 x86-64で行います。\n'
                             '\n'
-                            '1. 「LUFScale-2.2.2-Setup-x64.exe」とSHA-256ファイルをダウンロードします。\n'
+                            '1. 「LUFScale-2.2.3-Setup-x64.exe」とSHA-256ファイルをダウンロードします。\n'
                             '2. SHA-256を確認してインストーラーをダブルクリックします。\n'
                             '3. GNU GPLライセンスを読み、同意してウィザードに従います。\n'
                             '4. スタートメニューからLUFScaleを起動します。\n'
@@ -3421,7 +3421,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': '출력 없는 예상',
         'guide_build_body': 'Windows 10 1809 이상 또는 Windows 11 x86-64에서:\n'
                             '\n'
-                            '1. “LUFScale-2.2.2-Setup-x64.exe”와 SHA-256 파일을 다운로드합니다.\n'
+                            '1. “LUFScale-2.2.3-Setup-x64.exe”와 SHA-256 파일을 다운로드합니다.\n'
                             '2. SHA-256을 확인한 뒤 설치 파일을 두 번 클릭합니다.\n'
                             '3. GNU GPL 라이선스를 읽고 동의한 다음 마법사를 따릅니다.\n'
                             '4. 시작 메뉴에서 LUFScale를 실행합니다.\n'
@@ -3860,7 +3860,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'Estimativa sem saída',
         'guide_build_body': 'No Windows 10 1809 ou posterior, ou Windows 11 x86-64:\n'
                             '\n'
-                            '1. Transfira «LUFScale-2.2.2-Setup-x64.exe» e o respetivo ficheiro SHA-256.\n'
+                            '1. Transfira «LUFScale-2.2.3-Setup-x64.exe» e o respetivo ficheiro SHA-256.\n'
                             '2. Verifique o SHA-256 e faça duplo clique no instalador.\n'
                             '3. Leia e aceite a licença GNU GPL e siga o assistente.\n'
                             '4. Inicie o LUFScale pelo menu Iniciar.\n'
@@ -4389,7 +4389,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'Оценка без выхода',
         'guide_build_body': 'В Windows 10 1809 или новее либо Windows 11 x86-64:\n'
                             '\n'
-                            '1. Загрузите «LUFScale-2.2.2-Setup-x64.exe» и файл SHA-256.\n'
+                            '1. Загрузите «LUFScale-2.2.3-Setup-x64.exe» и файл SHA-256.\n'
                             '2. Проверьте SHA-256 и дважды щёлкните установщик.\n'
                             '3. Прочтите и примите лицензию GNU GPL, затем следуйте указаниям мастера.\n'
                             '4. Запустите LUFScale из меню Пуск.\n'
@@ -4906,7 +4906,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': 'Çıktısız tahmin',
         'guide_build_body': 'Windows 10 1809 veya üzeri ya da Windows 11 x86-64 üzerinde:\n'
                             '\n'
-                            '1. “LUFScale-2.2.2-Setup-x64.exe” ve SHA-256 dosyasını indirin.\n'
+                            '1. “LUFScale-2.2.3-Setup-x64.exe” ve SHA-256 dosyasını indirin.\n'
                             '2. SHA-256 değerini doğrulayın ve yükleyiciye çift tıklayın.\n'
                             '3. GNU GPL lisansını okuyup kabul edin ve sihirbazı izleyin.\n'
                             '4. Başlat menüsünden LUFScale’i çalıştırın.\n'
@@ -5395,7 +5395,7 @@ EXTRA_TEXTS = {'es': {'activity_cancelled': 'Actividad: proceso cancelado',
         'guide_analyze_prediction_title': '无输出估算',
         'guide_build_body': '在 Windows 10 1809 或更高版本、或 Windows 11 x86-64 上：\n'
                             '\n'
-                            '1. 下载“LUFScale-2.2.2-Setup-x64.exe”及其 SHA-256 文件。\n'
+                            '1. 下载“LUFScale-2.2.3-Setup-x64.exe”及其 SHA-256 文件。\n'
                             '2. 验证 SHA-256，然后双击安装程序。\n'
                             '3. 阅读并接受 GNU GPL 许可证，然后按向导操作。\n'
                             '4. 从开始菜单启动 LUFScale。\n'

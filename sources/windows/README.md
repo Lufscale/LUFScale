@@ -1,4 +1,4 @@
-# LUFScale 2.2.2 for Windows
+# LUFScale 2.2.3 for Windows
 
 This repository is the independent Windows edition of LUFScale. It measures
 and normalizes perceived audio loudness while prioritizing a stable final
@@ -29,9 +29,9 @@ fonts and bundled tools retain their own licences; see
 Two self-contained Windows packages target x86-64 Windows 11 and Windows 10
 version 1809 or later:
 
-- `LUFScale-2.2.2-Setup-x64.exe` installs LUFScale for the current user and
+- `LUFScale-2.2.3-Setup-x64.exe` installs LUFScale for the current user and
   provides Start menu and optional desktop shortcuts;
-- `LUFScale-2.2.2-Portable-x64.exe` is a single portable executable: copy it
+- `LUFScale-2.2.3-Portable-x64.exe` is a single portable executable: copy it
   to another compatible computer and launch it directly, without installation.
 
 Both already contain LUFScale, the Python runtime, PySide6/Qt, FFmpeg, required
@@ -70,7 +70,7 @@ signature, then extracts it only below the project's `.build-tools` folder.
 It does not install Python, change the Windows registry, alter `PATH` or touch
 any existing Python installation.
 It prepares Inno Setup in the same private folder, creates an isolated Python
-environment, validates FFmpeg, generates the twelve guides, packages the
+environment, validates FFmpeg, verifies the twelve approved guides, packages the
 autonomous application, compiles the final offline setup and creates the
 portable single-file executable.
 The installer uses English only and does not display a language selector.
@@ -80,13 +80,13 @@ An Internet connection is therefore required once on the **publisher's build
 computer**, but never on the **end user's computer during installation**. The
 results are written to `dist`:
 
-- `LUFScale-2.2.2-Setup-x64.exe`;
-- `LUFScale-2.2.2-Setup-x64.exe.sha256`;
-- `LUFScale-2.2.2-Portable-x64.exe`;
-- `LUFScale-2.2.2-Portable-x64.exe.sha256`;
+- `LUFScale-2.2.3-Setup-x64.exe`;
+- `LUFScale-2.2.3-Setup-x64.exe.sha256`;
+- `LUFScale-2.2.3-Portable-x64.exe`;
+- `LUFScale-2.2.3-Portable-x64.exe.sha256`;
 - `LUFScale`, the unpacked application used to create the setup.
 
-See `VALIDATION_2.2.2.md` before publication.
+See `VALIDATION_2.2.3.md` before publication.
 
 ## Run from source
 
@@ -120,7 +120,7 @@ FFmpeg executable.
 This Windows project deliberately contains no builders, application bundles,
 deployment instructions or guides for another operating system.
 
-## Build progress in 2.2.2
+## Build progress (introduced in 2.2.2)
 
 The public build launcher displays milestone progress instead of streaming
 commands. The bar counts completed stages, not estimated elapsed time.
@@ -135,6 +135,10 @@ preserved. The other eleven languages remain selectable inside the application.
 Each application language retains its dedicated PDF guide. Build and installation materials are in English. Activity indicators read `Activity detected` and
 `No new messages for Xs`; silence alone does not mean the build is stalled.
 
-## Processing recovery (2.2.2)
+## Processing recovery (introduced in 2.2.2)
 
 Completed audio is staged locally before delivery to the selected output folder. Allow sufficient local free space for parallel jobs. If delivery fails, processing stops and the error log gives the path of any retained completed audio. The adjacent destination.json records the intended destination. Check storage access before manually copying recovered output or running the batch again. Original source files are never edited by artwork repair.
+
+## Documentation update in 2.2.3
+
+This release integrates the approved twelve-language PDF guides. Audio processing, application controls, language choices and dependency pins are unchanged from 2.2.2. The build verifies the bundled PDFs against `packaging/approved-guides.json` and embeds them without regenerating them. The generator sources remain available for future documentation edits. The maintainer reported successful native tests of 2.2.3; see VALIDATION_2.2.3.md.

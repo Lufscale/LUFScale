@@ -10,3 +10,7 @@ The native macOS builder generates verified records in this directory.
 
 These generated files are embedded in the application and copied beside it in
 the publishable community ZIP.
+
+## Documentation update in 2.2.3
+
+This release integrates the approved twelve-language PDF guides. Audio processing, application controls, language choices and dependency pins are unchanged from 2.2.2. The build verifies the bundled PDFs against `packaging/approved-guides.json` and embeds them without regenerating them. The generator sources remain available for future documentation edits. Native validation of 2.2.3 is pending.

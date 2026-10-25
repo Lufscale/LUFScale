@@ -190,8 +190,8 @@ Write-Host "Creating the single-file offline installer..."
 & $InnoCompiler $InstallerScript
 if ($LASTEXITCODE -ne 0) { Fail "Inno Setup compilation failed with exit code $LASTEXITCODE." }
 
-$Installer = Join-Path $ProjectRoot "dist\LUFScale-2.2.2-Setup-x64.exe"
-$Portable = Join-Path $ProjectRoot "dist\LUFScale-2.2.2-Portable-x64.exe"
+$Installer = Join-Path $ProjectRoot "dist\LUFScale-2.2.3-Setup-x64.exe"
+$Portable = Join-Path $ProjectRoot "dist\LUFScale-2.2.3-Portable-x64.exe"
 $InstallerChecksum = "$Installer.sha256"
 $PortableChecksum = "$Portable.sha256"
 if (-not (Test-Path $Installer)) { Fail "The expected offline installer was not created: $Installer" }
@@ -204,19 +204,19 @@ $IconCheckPython = Join-Path $ProjectRoot ".build-windows\Scripts\python.exe"
 if ($LASTEXITCODE -ne 0) { Fail "The installer icon is missing or invalid." }
 
 $InstallerHash = (Get-FileHash -Algorithm SHA256 $Installer).Hash.ToLowerInvariant()
-Set-Content -Path $InstallerChecksum -Value "$InstallerHash  LUFScale-2.2.2-Setup-x64.exe" -Encoding Ascii
+Set-Content -Path $InstallerChecksum -Value "$InstallerHash  LUFScale-2.2.3-Setup-x64.exe" -Encoding Ascii
 $PortableHash = (Get-FileHash -Algorithm SHA256 $Portable).Hash.ToLowerInvariant()
-Set-Content -Path $PortableChecksum -Value "$PortableHash  LUFScale-2.2.2-Portable-x64.exe" -Encoding Ascii
+Set-Content -Path $PortableChecksum -Value "$PortableHash  LUFScale-2.2.3-Portable-x64.exe" -Encoding Ascii
 foreach ($Checksum in @($InstallerChecksum, $PortableChecksum)) {
     if ((Get-Item $Checksum).Length -le 0) { Fail "The SHA-256 file is empty: $Checksum" }
 }
 
 Write-Host ""
-Write-Host "LUFScale 2.2.2 offline installer created successfully:"
+Write-Host "LUFScale 2.2.3 offline installer created successfully:"
 Write-Host $Installer
 Write-Host "SHA-256: $InstallerChecksum"
 Write-Host ""
-Write-Host "LUFScale 2.2.2 portable single-file application created successfully:"
+Write-Host "LUFScale 2.2.3 portable single-file application created successfully:"
 Write-Host $Portable
 Write-Host "SHA-256: $PortableChecksum"
 Write-Host ""
