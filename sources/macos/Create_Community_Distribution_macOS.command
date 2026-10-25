@@ -3,6 +3,11 @@
 set -eu
 cd -- "$(dirname -- "$0")"
 
+if [[ "${LUFSCALE_PROGRESS_WORKER:-0}" != "1" ]]; then
+    exec /bin/zsh ./tools/Build_Progress_macOS.command
+fi
+source ./tools/build_progress.zsh
+
 fail() {
     print -u2 -- "ERROR — $1"
     exit 1
@@ -17,6 +22,7 @@ export LUFSCALE_NONINTERACTIVE=1
 
 ./tools/Internal_Application_Builder_macOS.command
 
+build_stage 6 "Validation and signing"
 app_path="dist/LUFScale.app"
 collect_path="dist/LUFScale"
 [[ -d "$app_path" ]] \
@@ -37,7 +43,7 @@ if /usr/bin/otool -L "$bundled_ffmpeg" | /usr/bin/tail -n +2 \
     fail "The FFmpeg engine still depends on a non-system external library."
 fi
 
-version="$(PYTHONPATH=src .construction-macos/bin/python - <<'PY'
+version="$(PYTHONPATH=src .build-macos/bin/python - <<'PY'
 from lufscale.version import APP_VERSION
 
 print(APP_VERSION)
@@ -51,7 +57,7 @@ release_folder="$release_tmp/$release_name"
 /bin/mkdir -p "$release_folder"
 
 /usr/bin/ditto "$app_path" "$release_folder/LUFScale.app"
-for file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.1.12.md VALIDATION_2.1.12.md; do
+for file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.2.md VALIDATION_2.2.2.md; do
     /usr/bin/ditto "$file" "$release_folder/$file"
 done
 /usr/bin/ditto "packaging/generated/FFMPEG_DISTRIBUTION_NOTICE.txt" \
@@ -66,6 +72,7 @@ done
 /usr/bin/ditto "packaging/generated/corresponding-source" \
     "$release_folder/corresponding-source"
 
+build_stage 7 "Creating the ZIP and checksums"
 release_zip="dist/$release_name.zip"
 temporary_zip="$release_tmp/$release_name.zip"
 /usr/bin/ditto -c -k --keepParent --rsrc --sequesterRsrc \
@@ -88,3 +95,5 @@ echo "Python, PySide6/Qt, FFmpeg and the required codecs are included inside LUF
 echo "End users do not need to install Python, Qt, FFmpeg or a package manager."
 echo "Exact sources, licenses, build options, and notices accompany the ZIP."
 echo "Publish OPEN_LUFSCALE_ON_MACOS.md alongside the download."
+
+build_stage 8 "Complete"

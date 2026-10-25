@@ -1,7 +1,7 @@
 """Single source of truth for the LUFScale identity and version."""
 
 APP_NAME = "LUFScale"
-APP_VERSION = "2.1.12"
+APP_VERSION = "2.2.2"
 APP_DISPLAY_VERSION = APP_VERSION
 APP_AUTHOR = "Perez Philippe"
 APP_RELEASE_YEAR = 2026

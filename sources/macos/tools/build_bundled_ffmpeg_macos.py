@@ -19,8 +19,10 @@ import shlex
 import shutil
 import subprocess
 import sys
+import struct
 import tarfile
 import tempfile
+import zlib
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from runpy import run_path
@@ -31,6 +33,7 @@ DEPLOYMENT_TARGET = "12.0"
 APP_VERSION = str(
     run_path(PROJECT_ROOT / "src" / "lufscale" / "version.py")["APP_VERSION"]
 )
+FFMPEG_BUILD_REVISION = "png-zlib-v1"
 
 
 @dataclass(frozen=True)
@@ -101,26 +104,56 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def build_detail(message: str) -> None:
+    destination = os.environ.get("LUFSCALE_DETAIL_FILE")
+    if destination:
+        target = Path(destination)
+        temporary = target.with_suffix(".tmp")
+        temporary.write_text(message.replace("\n", " "), encoding="utf-8")
+        temporary.replace(target)
+
+
 def run(command: list[str], *, cwd: Path | None = None, env: dict[str, str] | None = None) -> str:
     print("+", " ".join(command), flush=True)
-    completed = subprocess.run(
+    tool = Path(command[0]).name
+    component = cwd.name if cwd else "audio engine"
+    if tool == "make":
+        action = ("Installing " if "install" in command else "Building ") + component
+    elif tool == "configure":
+        action = "Configuring " + component
+    elif tool == "curl":
+        action = "Downloading " + command[-1].rsplit("/", 1)[-1]
+    else:
+        action = "Validating: " + tool
+    build_detail(action)
+    completed = subprocess.Popen(
         command,
         cwd=cwd,
         env=env,
-        check=False,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        bufsize=1,
     )
-    if completed.stdout:
-        print(completed.stdout, end="" if completed.stdout.endswith("\n") else "\n")
+    output = []
+    operations = 0
+    assert completed.stdout is not None
+    for line in completed.stdout:
+        output.append(line)
+        print(line, end="", flush=True)
+        if re.match(r"^\s*(CC|CXX|AR|LD|STRIP|INSTALL|GEN)\s", line):
+            operations += 1
+            build_detail(f"{action} : {operations} operations - {line.strip()}")
+    completed.stdout.close()
+    completed.wait()
+    captured = "".join(output)
     if completed.returncode != 0:
         raise subprocess.CalledProcessError(
             completed.returncode,
             command,
-            output=completed.stdout,
+            output=captured,
         )
-    return completed.stdout
+    return captured
 
 
 def download(source: SourceArchive, destination: Path) -> None:
@@ -316,6 +349,46 @@ int main(void) { return 0; }\n
     return lame_env
 
 
+def validate_png_artwork(ffmpeg: Path, temp: Path) -> None:
+    """Exercise PNG probing, MP3 attachment copy and filtered audio together."""
+    def chunk(kind: bytes, payload: bytes) -> bytes:
+        return (struct.pack(">I", len(payload)) + kind + payload
+                + struct.pack(">I", zlib.crc32(kind + payload) & 0xffffffff))
+
+    picture = temp / "cover.png"
+    # Odd dimensions and alpha match the class of cover that exposed the bug.
+    picture.write_bytes(
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", 3, 3, 8, 6, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress((b"\0" + b"\x40\x80\xc0\xff" * 3) * 3))
+        + chunk(b"IEND", b"")
+    )
+    source = temp / "png-source.mp3"
+    output = temp / "png-normalized.mp3"
+    run([
+        str(ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
+        "-f", "lavfi", "-i", "sine=frequency=1000:duration=0.5",
+        "-i", str(picture), "-map", "0:a:0", "-map", "1:v:0",
+        "-c:a", "libmp3lame", "-c:v", "copy", "-id3v2_version", "3",
+        str(source),
+    ])
+    run([
+        str(ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
+        "-i", str(source), "-map", "0:a:0", "-map", "0:v:0",
+        "-af", "loudnorm=I=-14:TP=-2:LRA=11", "-ar", "44100",
+        "-c:a", "libmp3lame", "-c:v", "copy", "-id3v2_version", "3",
+        str(output),
+    ])
+    extracted = temp / "preserved-cover.png"
+    run([
+        str(ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
+        "-i", str(output), "-map", "0:v:0", "-c:v", "copy",
+        "-frames:v", "1", "-f", "image2", str(extracted),
+    ])
+    if extracted.read_bytes() != picture.read_bytes():
+        raise RuntimeError("PNG artwork was not preserved byte for byte.")
+
+
 def validate_runtime(ffmpeg: Path, target_arch: str) -> dict[str, str]:
     version_output = run([str(ffmpeg), "-hide_banner", "-version"])
     configuration = next(
@@ -347,6 +420,10 @@ def validate_runtime(ffmpeg: Path, target_arch: str) -> dict[str, str]:
     if missing:
         raise RuntimeError("Missing FFmpeg encoders: " + ", ".join(missing))
 
+    decoders = run([str(ffmpeg), "-hide_banner", "-decoders"])
+    if not re.search(r"^\s*V\S*\s+png\s", decoders, re.MULTILINE):
+        raise RuntimeError("Missing PNG decoder: rebuild FFmpeg with --enable-zlib.")
+
     file_output = run(["file", str(ffmpeg)]).strip()
     expected = "arm64" if target_arch == "arm64" else "x86_64"
     if expected not in file_output:
@@ -366,6 +443,7 @@ def validate_runtime(ffmpeg: Path, target_arch: str) -> dict[str, str]:
 
     with tempfile.TemporaryDirectory(prefix="lufscale-ffmpeg-test-") as temporary:
         temp = Path(temporary)
+        validate_png_artwork(ffmpeg, temp)
         cases = (
             ("test.mp3", "libmp3lame"),
             ("test.flac", "flac"),
@@ -447,7 +525,7 @@ def main() -> int:
     corresponding_source = generated / "corresponding-source"
     # Autoconf/Automake projects in the audio stack do not all preserve paths
     # containing spaces or shell metacharacters.  The downloaded project may
-    # legitimately be named e.g. "LUFScale-2.1.12-open-source (1)", so all
+    # legitimately be named e.g. "LUFScale-2.2.2-open-source (1)", so all
     # compilation inputs, outputs and prefixes live below a private, stable,
     # whitespace-free macOS temporary path instead of below PROJECT_ROOT.
     safe_build_base = Path("/private/tmp") / (
@@ -596,7 +674,8 @@ def main() -> int:
 
     ffmpeg_prefix = prefix / "ffmpeg"
     ffmpeg_marker = ffmpeg_prefix / ".lufscale-built"
-    if not ffmpeg_marker.is_file():
+    marker_text = f"built by LUFScale {APP_VERSION}; {FFMPEG_BUILD_REVISION}\n"
+    if not ffmpeg_marker.is_file() or ffmpeg_marker.read_text() != marker_text:
         ffmpeg_build = builds / "ffmpeg"
         ffmpeg_build.mkdir(parents=True, exist_ok=True)
         ffmpeg_options = [
@@ -611,6 +690,10 @@ def main() -> int:
             "--disable-ffprobe",
             "--disable-network",
             "--disable-autodetect",
+            # PNG decoding is needed to discover attached-picture dimensions,
+            # even when the picture is copied unchanged. Use macOS system zlib.
+            "--enable-zlib",
+            "--enable-decoder=png",
             "--disable-x86asm" if target_arch == "x86_64" else "--enable-neon",
             "--enable-libmp3lame",
             "--enable-libvorbis",
@@ -622,7 +705,7 @@ def main() -> int:
         run([str(extracted / "ffmpeg-7.1.5" / "configure"), *ffmpeg_options], cwd=ffmpeg_build, env=env)
         run(["make", f"-j{max(1, os.cpu_count() or 1)}"], cwd=ffmpeg_build, env=env)
         run(["make", "install"], cwd=ffmpeg_build, env=env)
-        ffmpeg_marker.write_text(f"built by LUFScale {APP_VERSION}\n", encoding="utf-8")
+        ffmpeg_marker.write_text(marker_text, encoding="utf-8")
 
     built_ffmpeg = ffmpeg_prefix / "bin" / "ffmpeg"
     runtime_dir = generated / "ffmpeg" / target_arch

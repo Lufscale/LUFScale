@@ -9,16 +9,16 @@ from pathlib import Path
 PDF_GUIDES = {
     "fr": "Guide_LUFScale_FR.pdf",
     "en": "Guide_LUFScale_EN.pdf",
-    "es": "Guia_LUFScale_ES.pdf",
-    "it": "Guida_LUFScale_IT.pdf",
-    "pt": "Guia_LUFScale_PT.pdf",
-    "ru": "Rukovodstvo_LUFScale_RU.pdf",
+    "es": "Guide_LUFScale_ES.pdf",
+    "it": "Guide_LUFScale_IT.pdf",
+    "pt": "Guide_LUFScale_PT.pdf",
+    "ru": "Guide_LUFScale_RU.pdf",
     "ja": "Guide_LUFScale_JA.pdf",
     "hi": "Guide_LUFScale_HI.pdf",
     "zh": "Guide_LUFScale_ZH.pdf",
     "ko": "Guide_LUFScale_KO.pdf",
-    "id": "Panduan_LUFScale_ID.pdf",
-    "tr": "Kilavuz_LUFScale_TR.pdf",
+    "id": "Guide_LUFScale_ID.pdf",
+    "tr": "Guide_LUFScale_TR.pdf",
 }
 
 

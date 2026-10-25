@@ -126,7 +126,13 @@ REQUIRED_AUDIO_ENCODERS = (
 
 
 def is_supported_audio_file(path: Path | str) -> bool:
-    return Path(path).suffix.lower() in SUPPORTED_AUDIO_EXTENSIONS
+    candidate = Path(path)
+    # AppleDouble resource forks can have an audio extension but contain no audio.
+    return (
+        not candidate.name.startswith("._")
+        and "__MACOSX" not in candidate.parts
+        and candidate.suffix.lower() in SUPPORTED_AUDIO_EXTENSIONS
+    )
 
 
 def core_text(language: str, key: str, **values: Any) -> str:
@@ -177,6 +183,8 @@ def canonicalize_inputs(items: Iterable[Path | str]) -> list[Path]:
 
     for raw_item in items:
         item = Path(raw_item).expanduser().resolve()
+        if "__MACOSX" in item.parts:
+            continue
         if not item.exists():
             continue
         if item.is_file() and not is_supported_audio_file(item):
@@ -247,7 +255,10 @@ def _unique_file_name(name: str, used: set[str]) -> str:
 
 
 def iter_audio_files(folder: Path) -> Iterable[Path]:
+    if "__MACOSX" in folder.parts:
+        return
     for current_root, directory_names, file_names in os.walk(folder, followlinks=False):
+        directory_names[:] = [name for name in directory_names if name != "__MACOSX"]
         directory_names.sort(key=str.casefold)
         file_names.sort(key=str.casefold)
         current = Path(current_root)
@@ -731,6 +742,8 @@ def measurements_are_already_compliant(
 def loudnorm_conversion_filter(
     settings: LoudnessSettings, measurements: dict[str, str]
 ) -> str:
+    from .resilience import validate_measurements
+    validate_measurements(measurements)
     return (
         f"loudnorm=I={settings.integrated_lufs:g}"
         f":LRA={settings.loudness_range:g}"

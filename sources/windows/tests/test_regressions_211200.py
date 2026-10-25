@@ -71,9 +71,9 @@ class WindowsPortRegressionTests(unittest.TestCase):
         self.assertNotIn("CheckStateRole", delegate + language_combo + header)
 
     def test_release_identity_and_records(self) -> None:
-        self.assertEqual(APP_VERSION, "2.1.12")
-        self.assertTrue((PROJECT_ROOT / "RELEASE_2.1.12.md").is_file())
-        self.assertTrue((PROJECT_ROOT / "VALIDATION_2.1.12.md").is_file())
+        self.assertEqual(APP_VERSION, "2.2.2")
+        self.assertTrue((PROJECT_ROOT / "RELEASE_2.2.2.md").is_file())
+        self.assertTrue((PROJECT_ROOT / "VALIDATION_2.2.2.md").is_file())
         self.assertFalse((PROJECT_ROOT / "RELEASE_2.1.8.md").exists())
         self.assertFalse((PROJECT_ROOT / "VALIDATION_2.1.8.md").exists())
         sbom = json.loads((PROJECT_ROOT / "SBOM.cdx.json").read_text("utf-8"))
@@ -83,10 +83,10 @@ class WindowsPortRegressionTests(unittest.TestCase):
             PROJECT_ROOT / "packaging/windows/version_info.txt"
         ).read_text("utf-8")
         for marker in (
-            "filevers=(2, 1, 12, 0)",
-            "prodvers=(2, 1, 12, 0)",
-            "StringStruct('FileVersion', '2.1.12')",
-            "StringStruct('ProductVersion', '2.1.12')",
+            "filevers=(2, 2, 2, 0)",
+            "prodvers=(2, 2, 2, 0)",
+            "StringStruct('FileVersion', '2.2.2')",
+            "StringStruct('ProductVersion', '2.2.2')",
         ):
             self.assertIn(marker, version_info)
 
@@ -400,7 +400,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
             "packaging\\windows\\LUFScale.spec",
             "packaging\\windows\\LUFScale-Portable.spec",
             "pyi-archive_viewer.exe",
-            "LUFScale-2.1.12-Portable-x64.exe",
+            "LUFScale-2.2.2-Portable-x64.exe",
             "exactly one ffmpeg.exe",
             "loudnorm",
             "libmp3lame",
@@ -445,25 +445,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
             "innosetup-$InnoVersion-install.log",
             "ISCC.exe",
             "Get-FileHash -Algorithm SHA256",
-            'Join-Path $ToolsDirectory "inno-languages-$InnoVersion"',
-            "function Download-VerifiedTranslation",
-            "raw.githubusercontent.com/jrsoftware/issrc/1ae7bf81dc0d2013235dfe4bb0b6f4e4a0b6b25c/Files/Languages/ChineseSimplified.isl",
-            "e0b0b350e2245f3c5e65586dfe43d574f6e7f06f2261149aba284954b3fc9a8d",
-            "raw.githubusercontent.com/jrsoftware/issrc/is-6_7_3/Files/Languages/Unofficial/Hindi.islu",
-            "fbb1045f3b25842bb926bdd5400d07875f4c8572b04ffab14bb7add9882cc19b",
-            'Name = "Hindi-legacy.islu"',
-            "raw.githubusercontent.com/jrsoftware/issrc/1ae7bf81dc0d2013235dfe4bb0b6f4e4a0b6b25c/Files/Languages/Unofficial/Indonesian.isl",
-            "06232efff765902ddf7be78e39f1c5471b7e35f4c7c537deeb76692f3b5e208d",
-            "foreach ($Translation in $InnoAdditionalTranslations)",
-            'Join-Path $ScriptDirectory "modernize_inno_translation.py"',
-            'packaging\\windows\\languages\\Hindi-6.7.3-supplement.isl',
-            '--reference $InnoDefaultMessages',
-            '--legacy $HindiLegacyMessages',
-            '--supplement $HindiSupplement',
-            '--output $HindiCurrentMessages',
-            'Fail "The complete Hindi Inno Setup translation could not be generated."',
-            "LUFScale-2.1.12-Setup-x64.exe",
-            "LUFScale-2.1.12-Portable-x64.exe",
+            "LUFScale-2.2.2-Setup-x64.exe",
+            "LUFScale-2.2.2-Portable-x64.exe",
             "$PortableChecksum",
         ):
             self.assertIn(marker, installer_builder)
@@ -484,7 +467,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
         self.assertNotIn("uninstall Python", installer_builder)
         self.assertNotIn("-ArgumentList $InnoArguments", installer_builder)
         self.assertNotIn('"Martijn Laan|Jordan Russell"', installer_builder)
-        self.assertIn("tools\\Internal_Installer_Orchestrator_Windows.ps1", launcher)
+        self.assertIn("tools\\Build_Progress_Windows.ps1", launcher)
         self.assertIn("-ExecutionPolicy Bypass", launcher)
         self.assertNotIn("Get-Command py.exe", installer_builder)
         self.assertNotIn("Get-Command python.exe", installer_builder)
@@ -494,39 +477,24 @@ class WindowsPortRegressionTests(unittest.TestCase):
     def test_offline_installer_definition_contains_the_full_payload(self) -> None:
         setup = (PROJECT_ROOT / "packaging/windows/LUFScale.iss").read_text("utf-8")
         for marker in (
-            '#define MyAppVersion "2.1.12"',
+            '#define MyAppVersion "2.2.2"',
             "PrivilegesRequired=lowest",
             "ArchitecturesAllowed=x64compatible",
             "MinVersion=10.0.17763",
-            "OutputBaseFilename=LUFScale-2.1.12-Setup-x64",
+            "OutputBaseFilename=LUFScale-2.2.2-Setup-x64",
             'Source: "..\\..\\dist\\LUFScale\\*"',
             'Filename: "{uninstallexe}"',
             "desktopicon",
             "SolidCompression=yes",
-            "ShowLanguageDialog=yes",
+            "ShowLanguageDialog=no",
             "MissingMessagesWarning=yes",
             "NotRecognizedMessagesWarning=yes",
         ):
             self.assertIn(marker, setup)
         language_section = setup.split("[Languages]", 1)[1].split("[Tasks]", 1)[0]
-        expected_languages = {
-            "english": "compiler:Default.isl",
-            "french": "compiler:Languages\\French.isl",
-            "spanish": "compiler:Languages\\Spanish.isl",
-            "italian": "compiler:Languages\\Italian.isl",
-            "portuguese": "compiler:Languages\\Portuguese.isl",
-            "russian": "compiler:Languages\\Russian.isl",
-            "japanese": "compiler:Languages\\Japanese.isl",
-            "hindi": "Hindi.isl",
-            "chinese": "ChineseSimplified.isl",
-            "korean": "compiler:Languages\\Korean.isl",
-            "indonesian": "Indonesian.isl",
-            "turkish": "compiler:Languages\\Turkish.isl",
-        }
-        self.assertEqual(language_section.count('Name: "'), 12)
-        for language, message_file in expected_languages.items():
-            self.assertIn(f'Name: "{language}"', language_section)
-            self.assertIn(message_file, language_section)
+        self.assertEqual(language_section.count('Name: "'), 1)
+        self.assertIn('Name: "english"; MessagesFile: "compiler:Default.isl"', language_section)
+        self.assertIn('ShowLanguageDialog=no', setup)
         for forbidden in ("http://", "https://", "download", "DownloadTemporaryFile", "[Code]"):
             self.assertNotIn(forbidden, setup)
 
@@ -548,7 +516,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
             PROJECT_ROOT / "packaging/windows/LUFScale-Portable.spec"
         ).read_text("utf-8")
         for marker in (
-            'name="LUFScale-2.1.12-Portable-x64"',
+            'name="LUFScale-2.2.2-Portable-x64"',
             "a.binaries",
             "a.datas",
             "console=False",
@@ -636,7 +604,7 @@ class WindowsPortRegressionTests(unittest.TestCase):
                 "Windows",
                 "x86-64",
                 "Python",
-                "LUFScale-2.1.12-Setup-x64.exe",
+                "LUFScale-2.2.2-Setup-x64.exe",
                 "SmartScreen",
             ):
                 self.assertIn(marker, body, (language, marker))
@@ -794,10 +762,10 @@ class WindowsPortRegressionTests(unittest.TestCase):
             for marker in (
                 "Windows", "x64",
                 "Create_Offline_Installer_Windows.cmd",
-                "dist\\LUFScale-2.1.12-Setup-x64.exe",
-                "dist\\LUFScale-2.1.12-Setup-x64.exe.sha256",
-                "dist\\LUFScale-2.1.12-Portable-x64.exe",
-                "dist\\LUFScale-2.1.12-Portable-x64.exe.sha256",
+                "dist\\LUFScale-2.2.2-Setup-x64.exe",
+                "dist\\LUFScale-2.2.2-Setup-x64.exe.sha256",
+                "dist\\LUFScale-2.2.2-Portable-x64.exe",
+                "dist\\LUFScale-2.2.2-Portable-x64.exe.sha256",
                 ".exe Setup (",
                 ".exe Portable (",
                 ".sha256 (",
@@ -808,8 +776,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
                 "Intel",
                 "./Create_Community_Distribution_macOS.command",
                 "dist/LUFScale.app",
-                "dist/LUFScale-2.1.12-macOS-arm64-community.zip",
-                "dist/LUFScale-2.1.12-macOS-x86_64-community.zip",
+                "dist/LUFScale-2.2.2-macOS-arm64-community.zip",
+                "dist/LUFScale-2.2.2-macOS-x86_64-community.zip",
             ):
                 self.assertNotIn(forbidden, build["title"] + build["body"], (language, forbidden))
             output_lines = build["body"].splitlines()
@@ -819,10 +787,10 @@ class WindowsPortRegressionTests(unittest.TestCase):
                 language,
             )
             for output_path in (
-                "\t**dist\\LUFScale-2.1.12-Setup-x64.exe**",
-                "\t**dist\\LUFScale-2.1.12-Setup-x64.exe.sha256**",
-                "\t**dist\\LUFScale-2.1.12-Portable-x64.exe**",
-                "\t**dist\\LUFScale-2.1.12-Portable-x64.exe.sha256**",
+                "\t**dist\\LUFScale-2.2.2-Setup-x64.exe**",
+                "\t**dist\\LUFScale-2.2.2-Setup-x64.exe.sha256**",
+                "\t**dist\\LUFScale-2.2.2-Portable-x64.exe**",
+                "\t**dist\\LUFScale-2.2.2-Portable-x64.exe.sha256**",
             ):
                 self.assertEqual(output_lines.count(output_path), 1, (language, output_path))
             self.assertEqual(
@@ -833,11 +801,11 @@ class WindowsPortRegressionTests(unittest.TestCase):
             command_index = output_lines.index("\t**.\\Create_Offline_Installer_Windows.cmd**")
             self.assertFalse(output_lines[command_index - 1].strip(), language)
             self.assertFalse(output_lines[command_index + 1].strip(), language)
-            setup_index = output_lines.index("\t**dist\\LUFScale-2.1.12-Setup-x64.exe**")
+            setup_index = output_lines.index("\t**dist\\LUFScale-2.2.2-Setup-x64.exe**")
             self.assertFalse(output_lines[setup_index - 1].strip(), language)
-            self.assertEqual(output_lines[setup_index + 1], "\t**dist\\LUFScale-2.1.12-Setup-x64.exe.sha256**", language)
-            self.assertEqual(output_lines[setup_index + 2], "\t**dist\\LUFScale-2.1.12-Portable-x64.exe**", language)
-            self.assertEqual(output_lines[setup_index + 3], "\t**dist\\LUFScale-2.1.12-Portable-x64.exe.sha256**", language)
+            self.assertEqual(output_lines[setup_index + 1], "\t**dist\\LUFScale-2.2.2-Setup-x64.exe.sha256**", language)
+            self.assertEqual(output_lines[setup_index + 2], "\t**dist\\LUFScale-2.2.2-Portable-x64.exe**", language)
+            self.assertEqual(output_lines[setup_index + 3], "\t**dist\\LUFScale-2.2.2-Portable-x64.exe.sha256**", language)
             self.assertFalse(output_lines[setup_index + 4].strip(), language)
             self.assertTrue(output_lines[setup_index + 5].startswith(".exe Setup ("), language)
             self.assertTrue(output_lines[setup_index + 6].startswith(".exe Portable ("), language)
@@ -931,8 +899,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
             sorted(path.name for path in (PROJECT_ROOT / "tools").glob("*.py")),
             [
                 "generate_guides.py",
-                "modernize_inno_translation.py",
                 "prepare_bundled_ffmpeg_windows.py",
+                "verify_application_icon.py",
             ],
         )
         self.assertEqual(
@@ -944,8 +912,8 @@ class WindowsPortRegressionTests(unittest.TestCase):
     def test_public_records_are_windows_only(self) -> None:
         paths = [
             PROJECT_ROOT / "README.md",
-            PROJECT_ROOT / "RELEASE_2.1.12.md",
-            PROJECT_ROOT / "VALIDATION_2.1.12.md",
+            PROJECT_ROOT / "RELEASE_2.2.2.md",
+            PROJECT_ROOT / "VALIDATION_2.2.2.md",
             PROJECT_ROOT / "THIRD_PARTY_NOTICES.md",
             PROJECT_ROOT / "SBOM.cdx.json",
             PROJECT_ROOT / "packaging/generated/README.md",

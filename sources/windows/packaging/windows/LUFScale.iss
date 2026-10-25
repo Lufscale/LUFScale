@@ -1,6 +1,6 @@
 ; LUFScale offline installer for Windows 10/11 x86-64.
 #define MyAppName "LUFScale"
-#define MyAppVersion "2.1.12"
+#define MyAppVersion "2.2.2"
 #define MyAppPublisher "Perez Philippe"
 #define MyAppExeName "LUFScale.exe"
 
@@ -10,7 +10,7 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-VersionInfoVersion=2.1.12.0
+VersionInfoVersion=2.2.2.0
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription=LUFScale offline installer
 VersionInfoProductName={#MyAppName}
@@ -23,7 +23,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0.17763
 OutputDir=..\..\dist
-OutputBaseFilename=LUFScale-2.1.12-Setup-x64
+OutputBaseFilename=LUFScale-2.2.2-Setup-x64
 SetupIconFile=..\..\assets\branding\LUFScale.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 LicenseFile=..\..\LICENSE
@@ -35,23 +35,14 @@ RestartApplications=no
 SetupLogging=yes
 ChangesEnvironment=no
 UsePreviousAppDir=yes
-ShowLanguageDialog=yes
+ShowLanguageDialog=no
+LanguageDetectionMethod=none
+UsePreviousLanguage=no
 MissingMessagesWarning=yes
 NotRecognizedMessagesWarning=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
-Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
-Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
-Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
-Name: "hindi"; MessagesFile: "compiler:Default.isl,..\..\.build-tools\inno-languages-6.7.3\Hindi.isl"
-Name: "chinese"; MessagesFile: "compiler:Default.isl,..\..\.build-tools\inno-languages-6.7.3\ChineseSimplified.isl"
-Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
-Name: "indonesian"; MessagesFile: "compiler:Default.isl,..\..\.build-tools\inno-languages-6.7.3\Indonesian.isl"
-Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -62,7 +53,7 @@ Source: "..\..\dist\LUFScale\*"; DestDir: "{app}"; Flags: ignoreversion recurses
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

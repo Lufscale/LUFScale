@@ -1,4 +1,4 @@
-# LUFScale 2.1.12 for macOS - third-party notices
+# LUFScale 2.2.2 for macOS - third-party notices
 
 This inventory accompanies the GPL-3.0-or-later LUFScale source and binary
 packages. It must remain with every binary distribution. Original LUFScale
@@ -57,3 +57,12 @@ CPython 3.13.15 only below `.build-tools`. It never invokes the system Python
 installer. LUFScale's GPL-licensed build-local `pkg-config` helper reads the
 generated `.pc` metadata without requiring Homebrew. PyInstaller packages
 Python and Qt into `LUFScale.app`; no separate runtime is required by end users.
+
+## System PNG dependency
+
+The native FFmpeg build explicitly enables zlib from the macOS SDK/system
+for PNG decoding. No separate zlib binary is bundled by this source builder.
+
+## Artwork metadata repair
+
+Mutagen 1.47.0 (GPL-2.0-or-later, https://mutagen.readthedocs.io/) edits ID3 metadata on private working copies. Pillow 11.3.0 (MIT-CMU, https://python-pillow.org/) detects and converts embedded images. Their license texts are included in third_party_licenses.

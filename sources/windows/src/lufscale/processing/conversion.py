@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import csv
 import math
+import json
+import tempfile
 import os
 import shutil
 import subprocess
@@ -20,7 +22,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from PySide6.QtCore import QObject, Signal, Slot
+from PySide6.QtCore import QObject, Signal, Slot, QStandardPaths
+
+from ..audio.resilience import (
+    validate_measurements, repaired_mp3_source, publish_completed,
+    require_destination_volume, InvalidAudioError, ArtworkError,
+)
 
 from ..audio.core import (
     LOSSLESS_TARGET_CORRECTION_EXTENSIONS,
@@ -1075,8 +1082,12 @@ class ConversionWorker(QObject):
             )
             if measurements is None:
                 measurements = self._analyze_path(job.source)
+                validate_measurements(measurements)
                 self._store_measurements([job.source], measurements)
+            validate_measurements(measurements)
             return job, measurements, "", time.perf_counter() - started
+        except InvalidAudioError as exc:
+            return job, None, self.t("invalid_audio_measurement", error=exc), time.perf_counter() - started
         except InterruptedError:
             return (
                 job,
@@ -1281,15 +1292,30 @@ class ConversionWorker(QObject):
         report["_analysis_seconds"] = analysis_elapsed
         report["lufs_avant"] = measurement_value(input_measurements, "input_i")
         report["dbtp_avant"] = measurement_value(input_measurements, "input_tp")
-        temporary = self._temporary_path(job)
+        original_job = job
+        work_folder = None
+        temporary = None
+        output_ready = False
+        delivered = False
+        artwork_fixed = 0
         applied_gain: float | None = None
         detail = ""
 
         try:
             self._wait_if_paused()
 
-            job.destination.parent.mkdir(parents=True, exist_ok=True)
-            self._cleanup_stale_temporaries(job)
+            validate_measurements(input_measurements)
+            require_destination_volume(job.destination)
+            recovery_root = Path(QStandardPaths.writableLocation(
+                QStandardPaths.StandardLocation.AppLocalDataLocation)) / "LUFScale" / "recovery"
+            recovery_root.mkdir(parents=True, exist_ok=True)
+            work_folder = Path(tempfile.mkdtemp(prefix="track-", dir=recovery_root))
+            temporary = work_folder / job.destination.name
+            (work_folder / "destination.json").write_text(json.dumps({
+                "source": str(job.source), "destination": str(job.destination)
+            }, ensure_ascii=False), encoding="utf-8")
+            processing_source, artwork_fixed = repaired_mp3_source(job.source, work_folder)
+            job = replace(job, source=processing_source)
             finite_input = measurements_are_finite(input_measurements)
             copied_compliant = bool(
                 self.operation == "convert"
@@ -1307,7 +1333,7 @@ class ConversionWorker(QObject):
                 report["lufs_apres"] = measurement_value(input_measurements, "input_i")
                 report["dbtp_apres"] = measurement_value(input_measurements, "input_tp")
                 report["_copied_compliant"] = True
-                detail = self.t("already_compliant_copy")
+                detail = "" if artwork_fixed else self.t("already_compliant_copy")
             elif self.operation == "replaygain" and finite_input:
                 track_gain = calculate_loudness_gain_db(
                     self.settings, input_measurements, self.language
@@ -1373,8 +1399,8 @@ class ConversionWorker(QObject):
                     raise RuntimeError(concise_ffmpeg_error(stderr, self.language))
                 detail = self.t("track_two_pass")
 
+            output_ready = True
             self._wait_if_paused()
-
             report["_conversion_seconds"] = time.perf_counter() - started
             quality_started = time.perf_counter()
             quality_warning = ""
@@ -1533,15 +1559,21 @@ class ConversionWorker(QObject):
                 report["_quality_seconds"] = 0.0
 
             self._wait_if_paused()
-            os.replace(temporary, job.destination)
+            try:
+                publish_completed(temporary, job.destination, self._wait_if_paused)
+            except OSError as exc:
+                # Stop launching/processing further jobs after a delivery failure.
+                self.request_cancel()
+                raise OSError(self.t("destination_failed", error=exc)) from exc
+            delivered = True
             self._set_status(report, "ok")
-            report["détail"] = detail
+            report["détail"] = detail + ((" ; " if detail else "") + self.t("artwork_repaired", count=artwork_fixed) if artwork_fixed else "")
             report["temps_secondes"] = (
                 f"{analysis_elapsed + time.perf_counter() - started:.2f}"
             )
             if self._manifest is not None:
                 try:
-                    self._manifest.mark_completed(job, configuration, report)
+                    self._manifest.mark_completed(original_job, configuration, report)
                 except OSError as exc:
                     report["détail"] += self.t("resume_not_saved", error=exc)
             return report
@@ -1559,16 +1591,27 @@ class ConversionWorker(QObject):
             if not report["_conversion_seconds"]:
                 report["_conversion_seconds"] = time.perf_counter() - started
             self._set_status(report, "error")
-            report["détail"] = str(exc)
+            if isinstance(exc, InvalidAudioError):
+                report["détail"] = self.t("invalid_audio_measurement", error=exc)
+            elif isinstance(exc, ArtworkError):
+                report["détail"] = self.t("artwork_invalid", error=exc)
+            else:
+                report["détail"] = str(exc)
+            if isinstance(exc, OSError):
+                self.request_cancel()
             report["temps_secondes"] = (
                 f"{analysis_elapsed + time.perf_counter() - started:.2f}"
             )
             return report
         finally:
-            try:
-                temporary.unlink(missing_ok=True)
-            except OSError:
-                pass
+            if work_folder is not None:
+                if output_ready and not delivered and temporary is not None and temporary.is_file():
+                    report["détail"] += " ; " + self.t("output_recovered", path=temporary)
+                    report["_recovery_path"] = str(temporary)
+                    # Keep only the completed output and its destination record.
+                    shutil.rmtree(work_folder / "input", ignore_errors=True)
+                else:
+                    shutil.rmtree(work_folder, ignore_errors=True)
 
     def _emit_loudness_comparison(self, report: dict[str, Any]) -> None:
         """Emit measured before/after data from the worker thread."""
@@ -1678,6 +1721,7 @@ class ConversionWorker(QObject):
     def _write_report(self, reports: ReportStore) -> str:
         if not reports:
             return ""
+        require_destination_volume(self.output)
         self.output.mkdir(parents=True, exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         report_name = f"{self.t('report_filename_prefix')}_{timestamp}.csv"
@@ -1874,6 +1918,7 @@ class ConversionWorker(QObject):
             return
 
         try:
+            require_destination_volume(self.output)
             self.output.mkdir(parents=True, exist_ok=True)
         except OSError as exc:
             self.log.emit(self.t("destination_error", error=exc))
@@ -2010,6 +2055,8 @@ class ConversionWorker(QObject):
                 elif status_code == "error":
                     failed += 1
                 elif status_code == "cancelled":
+                    if report.get("_recovery_path"):
+                        self._log_report(report)
                     continue
                 completed += 1
                 if status_code == "ok":

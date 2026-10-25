@@ -2,8 +2,8 @@
 
 
 BUILD_COMMAND = r".\Create_Offline_Installer_Windows.cmd"
-WINDOWS_SETUP_PATH = r"dist\LUFScale-2.1.12-Setup-x64.exe"
-WINDOWS_PORTABLE_PATH = r"dist\LUFScale-2.1.12-Portable-x64.exe"
+WINDOWS_SETUP_PATH = r"dist\LUFScale-2.2.2-Setup-x64.exe"
+WINDOWS_PORTABLE_PATH = r"dist\LUFScale-2.2.2-Portable-x64.exe"
 WINDOWS_SETUP_CHECKSUM_PATH = f"{WINDOWS_SETUP_PATH}.sha256"
 WINDOWS_PORTABLE_CHECKSUM_PATH = f"{WINDOWS_PORTABLE_PATH}.sha256"
 SPACER_LINE = " "

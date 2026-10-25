@@ -3,8 +3,8 @@
 
 BUILD_COMMAND = "./Create_Community_Distribution_macOS.command"
 APP_PATH = "dist/LUFScale.app"
-ARM64_ARCHIVE_PATH = "dist/LUFScale-2.1.12-macOS-arm64-community.zip"
-INTEL_ARCHIVE_PATH = "dist/LUFScale-2.1.12-macOS-x86_64-community.zip"
+ARM64_ARCHIVE_PATH = "dist/LUFScale-2.2.2-macOS-arm64-community.zip"
+INTEL_ARCHIVE_PATH = "dist/LUFScale-2.2.2-macOS-x86_64-community.zip"
 ARM64_CHECKSUM_PATH = f"{ARM64_ARCHIVE_PATH}.sha256"
 INTEL_CHECKSUM_PATH = f"{INTEL_ARCHIVE_PATH}.sha256"
 SPACER_LINE = " "

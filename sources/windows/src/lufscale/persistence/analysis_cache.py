@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from ..audio.resilience import require_destination_volume
+
 import hashlib
 import json
 import os
@@ -137,6 +139,7 @@ class AnalysisCache:
         key: str,
         record: dict[str, Any],
     ) -> None:
+        require_destination_volume(self.journal_path)
         self.journal_path.parent.mkdir(parents=True, exist_ok=True)
         with self.journal_path.open("a", encoding="utf-8") as handle:
             handle.write(
@@ -159,6 +162,7 @@ class AnalysisCache:
             return True
 
     def _write_locked(self) -> None:
+        require_destination_volume(self.path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         temporary = self.path.with_name(
             f".{self.path.name}.{uuid.uuid4().hex}.tmp"

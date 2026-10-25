@@ -19,6 +19,8 @@ import shutil
 import struct
 import subprocess
 import sys
+import tempfile
+import zlib
 from importlib import metadata
 from pathlib import Path
 
@@ -84,6 +86,49 @@ def run(executable: Path, *arguments: str) -> str:
     return completed.stdout
 
 
+def validate_png_artwork(ffmpeg: Path, temp: Path) -> None:
+    """Exercise PNG probing, MP3 attachment copy and filtered audio together."""
+    def execute(command: list[str]) -> str:
+        return run(Path(command[0]), *command[1:])
+
+    def chunk(kind: bytes, payload: bytes) -> bytes:
+        return (struct.pack(">I", len(payload)) + kind + payload
+                + struct.pack(">I", zlib.crc32(kind + payload) & 0xffffffff))
+
+    picture = temp / "cover.png"
+    # Odd dimensions and alpha match the class of cover that exposed the bug.
+    picture.write_bytes(
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", 3, 3, 8, 6, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress((b"\0" + b"\x40\x80\xc0\xff" * 3) * 3))
+        + chunk(b"IEND", b"")
+    )
+    source = temp / "png-source.mp3"
+    output = temp / "png-normalized.mp3"
+    execute([
+        str(ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
+        "-f", "lavfi", "-i", "sine=frequency=1000:duration=0.5",
+        "-i", str(picture), "-map", "0:a:0", "-map", "1:v:0",
+        "-c:a", "libmp3lame", "-c:v", "copy", "-id3v2_version", "3",
+        str(source),
+    ])
+    execute([
+        str(ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
+        "-i", str(source), "-map", "0:a:0", "-map", "0:v:0",
+        "-af", "loudnorm=I=-14:TP=-2:LRA=11", "-ar", "44100",
+        "-c:a", "libmp3lame", "-c:v", "copy", "-id3v2_version", "3",
+        str(output),
+    ])
+    extracted = temp / "preserved-cover.png"
+    execute([
+        str(ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
+        "-i", str(output), "-map", "0:v:0", "-c:v", "copy",
+        "-frames:v", "1", "-f", "image2", str(extracted),
+    ])
+    if extracted.read_bytes() != picture.read_bytes():
+        raise RuntimeError("PNG artwork was not preserved byte for byte.")
+
+
 def main() -> int:
     if os.name != "nt":
         fail("the bundled Windows FFmpeg must be prepared on Windows")
@@ -123,6 +168,12 @@ def main() -> int:
     if "--enable-nonfree" in version_output:
         fail("the FFmpeg build is non-free and cannot be redistributed")
 
+    decoders_output = run(source, "-hide_banner", "-decoders")
+    if not re.search(r"^\s*V\S*\s+png\s", decoders_output, re.MULTILINE):
+        fail("the FFmpeg binary does not provide the PNG decoder")
+    with tempfile.TemporaryDirectory(prefix="lufscale-png-check-") as temporary_dir:
+        validate_png_artwork(source, Path(temporary_dir))
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     temporary = OUTPUT_FFMPEG.with_suffix(".exe.tmp")
     shutil.copy2(source, temporary)
@@ -146,6 +197,8 @@ def main() -> int:
         "binary_sha256": sha256(OUTPUT_FFMPEG),
         "pe_machine": "0x8664 (AMD64)",
         "required_filter": "loudnorm",
+        "required_decoders": ["png"],
+        "png_artwork_roundtrip": "passed; picture preserved byte for byte",
         "required_encoders": list(REQUIRED_AUDIO_ENCODERS),
     }
     OUTPUT_MANIFEST.write_text(
