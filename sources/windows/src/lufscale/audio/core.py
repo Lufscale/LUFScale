@@ -133,7 +133,7 @@ def is_supported_audio_file(path: Path | str) -> bool:
     # file (for example ``._song.mp3``) but contain no playable audio stream.
     # Reject them before recursive discovery so FFmpeg never receives them as
     # conversion jobs.  Other dot-prefixed audio names remain valid.
-    if candidate.name.startswith("._"):
+    if candidate.name.startswith("._") or "__MACOSX" in candidate.parts:
         return False
     return candidate.suffix.lower() in SUPPORTED_AUDIO_EXTENSIONS
 
@@ -186,6 +186,8 @@ def canonicalize_inputs(items: Iterable[Path | str]) -> list[Path]:
 
     for raw_item in items:
         item = Path(raw_item).expanduser().resolve()
+        if "__MACOSX" in item.parts:
+            continue
         if not item.exists():
             continue
         if item.is_file() and not is_supported_audio_file(item):
@@ -250,7 +252,10 @@ def _unique_destination_path(relative: Path, used: set[str]) -> Path:
 
 
 def iter_audio_files(folder: Path) -> Iterable[Path]:
+    if "__MACOSX" in folder.parts:
+        return
     for current_root, directory_names, file_names in os.walk(folder, followlinks=False):
+        directory_names[:] = [name for name in directory_names if name != "__MACOSX"]
         directory_names.sort(key=str.casefold)
         file_names.sort(key=str.casefold)
         current = Path(current_root)
@@ -739,6 +744,8 @@ def measurements_are_already_compliant(
 def loudnorm_conversion_filter(
     settings: LoudnessSettings, measurements: dict[str, str]
 ) -> str:
+    from .resilience import validate_measurements
+    validate_measurements(measurements)
     return (
         f"loudnorm=I={settings.integrated_lufs:g}"
         f":LRA={settings.loudness_range:g}"

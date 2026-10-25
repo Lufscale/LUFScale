@@ -1,4 +1,4 @@
-# LUFScale 2.1.12 for Windows
+# LUFScale 2.2.2 for Windows
 
 This repository is the independent Windows edition of LUFScale. It measures
 and normalizes perceived audio loudness while prioritizing a stable final
@@ -29,9 +29,9 @@ fonts and bundled tools retain their own licences; see
 Two self-contained Windows packages target x86-64 Windows 11 and Windows 10
 version 1809 or later:
 
-- `LUFScale-2.1.12-Setup-x64.exe` installs LUFScale for the current user and
+- `LUFScale-2.2.2-Setup-x64.exe` installs LUFScale for the current user and
   provides Start menu and optional desktop shortcuts;
-- `LUFScale-2.1.12-Portable-x64.exe` is a single portable executable: copy it
+- `LUFScale-2.2.2-Portable-x64.exe` is a single portable executable: copy it
   to another compatible computer and launch it directly, without installation.
 
 Both already contain LUFScale, the Python runtime, PySide6/Qt, FFmpeg, required
@@ -73,26 +73,20 @@ It prepares Inno Setup in the same private folder, creates an isolated Python
 environment, validates FFmpeg, generates the twelve guides, packages the
 autonomous application, compiles the final offline setup and creates the
 portable single-file executable.
-The setup language dialog provides the same twelve languages as LUFScale. The
-Chinese and current Indonesian message files not bundled with Inno Setup 6.7.3
-are downloaded from pinned official source revisions and SHA-256 verified on
-the publisher's build computer. The pinned official Hindi 5.5.3 translation is
-then modernized with a LUFScale-maintained supplement, filtered against the
-installed Inno Setup 6.7.3 `Default.isl`, and rejected if a current message or
-placeholder is missing or obsolete. Inno's missing and unrecognized message
-warnings remain enabled during compilation.
+The installer uses English only and does not display a language selector.
+Language selection is available inside LUFScale after installation.
 
 An Internet connection is therefore required once on the **publisher's build
 computer**, but never on the **end user's computer during installation**. The
 results are written to `dist`:
 
-- `LUFScale-2.1.12-Setup-x64.exe`;
-- `LUFScale-2.1.12-Setup-x64.exe.sha256`;
-- `LUFScale-2.1.12-Portable-x64.exe`;
-- `LUFScale-2.1.12-Portable-x64.exe.sha256`;
+- `LUFScale-2.2.2-Setup-x64.exe`;
+- `LUFScale-2.2.2-Setup-x64.exe.sha256`;
+- `LUFScale-2.2.2-Portable-x64.exe`;
+- `LUFScale-2.2.2-Portable-x64.exe.sha256`;
 - `LUFScale`, the unpacked application used to create the setup.
 
-See `VALIDATION_2.1.12.md` before publication.
+See `VALIDATION_2.2.2.md` before publication.
 
 ## Run from source
 
@@ -125,3 +119,22 @@ FFmpeg executable.
 
 This Windows project deliberately contains no builders, application bundles,
 deployment instructions or guides for another operating system.
+
+## Build progress in 2.2.2
+
+The public build launcher displays milestone progress instead of streaming
+commands. The bar counts completed stages, not estimated elapsed time.
+Complete output is kept under `build-logs`; failures show a short diagnostic
+and the log paths. The normal platform-specific launcher remains unchanged.
+
+## Default language
+
+The build/package interface and distribution documentation use English.
+Fresh application profiles default to English; saved language choices are
+preserved. The other eleven languages remain selectable inside the application.
+Each application language retains its dedicated PDF guide. Build and installation materials are in English. Activity indicators read `Activity detected` and
+`No new messages for Xs`; silence alone does not mean the build is stalled.
+
+## Processing recovery (2.2.2)
+
+Completed audio is staged locally before delivery to the selected output folder. Allow sufficient local free space for parallel jobs. If delivery fails, processing stops and the error log gives the path of any retained completed audio. The adjacent destination.json records the intended destination. Check storage access before manually copying recovered output or running the batch again. Original source files are never edited by artwork repair.

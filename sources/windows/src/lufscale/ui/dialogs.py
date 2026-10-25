@@ -641,9 +641,11 @@ class IssueListDialog(QDialog):
                 item.setToolTip(column, value)
             self.issue_table.addTopLevelItem(item)
         header = self.issue_table.header()
-        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
-        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
-        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
+        header.resizeSection(0, 240)
+        header.resizeSection(1, 340)
+        header.resizeSection(2, 460)
         layout.addWidget(self.issue_table, 1)
 
         button_row = QHBoxLayout()
@@ -760,7 +762,7 @@ def show_ffmpeg_setup_dialog(
     dialog.setWindowTitle(parent.t(title_key))
     dialog.setText(detail or parent.t("interface_ffmpeg_message"))
     download_button = None
-    # The 2.1.12 application bundle contains its own verified engine.  A
+    # The 2.2.2 application bundle contains its own verified engine.  A
     # missing engine therefore means the application bundle is incomplete;
     # offering a separate FFmpeg download would contradict the autonomous
     # distribution model.  The button remains useful when running the source

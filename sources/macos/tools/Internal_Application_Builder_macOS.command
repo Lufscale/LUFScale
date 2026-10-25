@@ -4,6 +4,7 @@ set -eu
 script_dir="$(cd -- "$(dirname -- "$0")" && /bin/pwd)"
 project_root="$(cd -- "$script_dir/.." && /bin/pwd)"
 cd -- "$project_root"
+source ./tools/build_progress.zsh
 
 show_error() {
     print -u2 -- "ERROR — $1"
@@ -230,10 +231,13 @@ if [[ "$target_arch" != "$host_arch" ]]; then
 fi
 export LUFSCALE_TARGET_ARCH="$target_arch"
 
+build_stage 0 "Apple developer tools: complete installation if prompted"
 ensure_command_line_tools
 
+build_stage 1 "Preparing Python"
 prepare_python
 
+build_stage 2 "Installing dependencies"
 interface_fonts=(
     "DejaVuSans.ttf"
     "DejaVuSans-Bold.ttf"
@@ -256,8 +260,8 @@ for font in "${interface_fonts[@]}"; do
 done
 
 icon_source="assets/branding/LUFScale_logo.png"
-iconset_dir=".construction-macos/LUFScale.iconset"
-icon_file=".construction-macos/LUFScale.icns"
+iconset_dir=".build-macos/LUFScale.iconset"
+icon_file=".build-macos/LUFScale.icns"
 if [[ ! -f "$icon_source" ]]; then
     show_error "The $icon_source icon is missing. It is required by the application."
     exit 1
@@ -265,15 +269,15 @@ fi
 
 echo "Preparing the build environment…"
 build_environment_is_usable() {
-    python_is_usable ".construction-macos/bin/python" \
-        && [[ -f ".construction-macos/pyvenv.cfg" ]] \
-        && /usr/bin/grep -Fq "$uv_python_dir" ".construction-macos/pyvenv.cfg"
+    python_is_usable ".build-macos/bin/python" \
+        && [[ -f ".build-macos/pyvenv.cfg" ]] \
+        && /usr/bin/grep -Fq "$uv_python_dir" ".build-macos/pyvenv.cfg"
 }
-if [[ -d ".construction-macos" ]] && ! build_environment_is_usable; then
-    /bin/rm -rf -- ".construction-macos"
+if [[ -d ".build-macos" ]] && ! build_environment_is_usable; then
+    /bin/rm -rf -- ".build-macos"
 fi
-if [[ ! -x ".construction-macos/bin/python" ]]; then
-    "$uv_binary" venv ".construction-macos" \
+if [[ ! -x ".build-macos/bin/python" ]]; then
+    "$uv_binary" venv ".build-macos" \
         --python "$bootstrap_python" \
         --managed-python \
         --no-config \
@@ -284,7 +288,7 @@ if [[ ! -x ".construction-macos/bin/python" ]]; then
 fi
 
 "$uv_binary" pip install \
-    --python ".construction-macos/bin/python" \
+    --python ".build-macos/bin/python" \
     --managed-python \
     --no-config \
     --no-progress \
@@ -300,27 +304,28 @@ if [[ "$(command -v pkg-config)" != "$project_root/tools/pkg-config" ]]; then
     exit 1
 fi
 
-build_version="$(PYTHONPATH=src .construction-macos/bin/python - <<'PY'
+build_version="$(PYTHONPATH=src .build-macos/bin/python - <<'PY'
 from lufscale.version import APP_VERSION
 
 print(APP_VERSION)
 PY
 )"
-if [[ "$build_version" != "2.1.12" ]]; then
+if [[ "$build_version" != "2.2.2" ]]; then
     show_error "Unexpected application version: $build_version"
     exit 1
 fi
 
+build_stage 3 "Generating guides"
 echo "Generating the twelve macOS PDF guides…"
 /bin/rm -rf -- "output/pdf"
 /bin/mkdir -p "output/pdf"
-.construction-macos/bin/python tools/generate_guides.py \
+.build-macos/bin/python tools/generate_guides.py \
     --output-dir "output/pdf" || {
     show_error "PDF guide generation failed. Review the Terminal messages."
     exit 1
 }
 pdf_guide_manifest=$(
-    PYTHONPATH="src" .construction-macos/bin/python - <<'PY'
+    PYTHONPATH="src" .build-macos/bin/python - <<'PY'
 from lufscale.resources import PDF_GUIDES
 
 print("\n".join(PDF_GUIDES.values()))
@@ -342,7 +347,8 @@ for guide in "${pdf_guides[@]}"; do
 done
 
 echo "Building the self-contained FFmpeg engine from verified sources…"
-.construction-macos/bin/python tools/build_bundled_ffmpeg_macos.py \
+build_stage 4 "Building and validating FFmpeg"
+.build-macos/bin/python tools/build_bundled_ffmpeg_macos.py \
     --target-arch "$target_arch" || {
     show_error "The self-contained FFmpeg engine build failed. Review the Terminal messages."
     exit 1
@@ -354,7 +360,7 @@ if [[ ! -x "$bundled_ffmpeg_path" ]]; then
 fi
 export LUFSCALE_BUNDLED_FFMPEG="$PWD/$bundled_ffmpeg_path"
 
-for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.1.12.md VALIDATION_2.1.12.md; do
+for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.2.md VALIDATION_2.2.2.md; do
     if [[ ! -f "$release_file" ]]; then
         show_error "The $release_file distribution file is missing."
         exit 1
@@ -382,7 +388,7 @@ if [[ ! -d "packaging/generated/third_party_licenses_ffmpeg" ]]; then
 fi
 
 echo "Recording the complete embedded runtime…"
-.construction-macos/bin/python tools/generate_runtime_manifest.py \
+.build-macos/bin/python tools/generate_runtime_manifest.py \
     --ffmpeg "$bundled_ffmpeg_path" \
     --target-arch "$target_arch" \
     --output "packaging/generated/LUFSCALE_RUNTIME_MANIFEST.json" || {
@@ -405,7 +411,8 @@ done
 }
 
 echo "Building LUFScale.app…"
-.construction-macos/bin/python -m PyInstaller \
+build_stage 5 "Building LUFScale.app"
+.build-macos/bin/python -m PyInstaller \
     --noconfirm \
     --clean \
     "packaging/macos/LUFScale.spec" || {
@@ -417,6 +424,13 @@ if [[ ! -d "dist/LUFScale.app" ]]; then
     show_error "The LUFScale.app bundle was not found after the build."
     exit 1
 fi
+
+echo "Verifying the application bundle icon..."
+.build-macos/bin/python tools/verify_application_icon.py mac \
+    "dist/LUFScale.app" "$icon_file" || {
+    show_error "The application bundle icon is missing or invalid."
+    exit 1
+}
 
 bundled_ffmpeg=$(
     /usr/bin/find "dist/LUFScale.app" \
@@ -465,7 +479,7 @@ if ! "$bundled_ffmpeg" -hide_banner -filters 2>/dev/null | /usr/bin/grep -q " lo
     exit 1
 fi
 
-for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.1.12.md VALIDATION_2.1.12.md FFMPEG_DISTRIBUTION_NOTICE.txt FFMPEG_BUILD_MANIFEST.json LUFSCALE_RUNTIME_MANIFEST.json; do
+for release_file in LICENSE COPYRIGHT README.md OPEN_LUFSCALE_ON_MACOS.md THIRD_PARTY_NOTICES.md SBOM.cdx.json RELEASE_2.2.2.md VALIDATION_2.2.2.md FFMPEG_DISTRIBUTION_NOTICE.txt FFMPEG_BUILD_MANIFEST.json LUFSCALE_RUNTIME_MANIFEST.json; do
     integrated_release_file=$(
         /usr/bin/find "dist/LUFScale.app" \
             -type f \

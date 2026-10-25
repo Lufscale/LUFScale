@@ -27,8 +27,15 @@ def concise_ffmpeg_error(stderr: str, language: str = "fr") -> str:
         or "invalid" in line.lower()
         or "failed" in line.lower()
         or "unable" in line.lower()
+        or "dimensions not set" in line.lower()
+        or "could not" in line.lower()
+        or "not found" in line.lower()
     ]
-    selected = useful[-3:] if useful else lines[-3:]
+    # The final lines often only repeat EINVAL / thread termination. Keep the
+    # first diagnostic (e.g. missing artwork dimensions) as well as the result.
+    selected = (useful[:3] + useful[-1:]) if len(useful) > 4 else useful
+    if not selected:
+        selected = lines[-3:]
     return " | ".join(selected) or translate(
         language, "ffmpeg_error_no_detail"
     )

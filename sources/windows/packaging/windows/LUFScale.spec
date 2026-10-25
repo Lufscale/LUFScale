@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from runpy import run_path
 
 
 PROJECT_ROOT = Path(SPECPATH).resolve().parents[1]
@@ -19,6 +20,18 @@ for required in (ICON, BUNDLED_FFMPEG, GUIDES_DIR):
     if not required.exists():
         raise FileNotFoundError(f"Required Windows build input not found: {required}")
 
+EXPECTED_GUIDES = set(run_path(PROJECT_ROOT / "src" / "lufscale" / "resources.py")["PDF_GUIDES"].values())
+ACTUAL_GUIDES = {path.name for path in GUIDES_DIR.glob("*.pdf") if path.is_file()}
+MISSING_GUIDES = sorted(EXPECTED_GUIDES - ACTUAL_GUIDES)
+EXTRA_GUIDES = sorted(ACTUAL_GUIDES - EXPECTED_GUIDES)
+EMPTY_GUIDES = sorted(name for name in EXPECTED_GUIDES & ACTUAL_GUIDES
+                      if (GUIDES_DIR / name).stat().st_size == 0)
+if MISSING_GUIDES or EXTRA_GUIDES or EMPTY_GUIDES:
+    raise FileNotFoundError(
+        f"Invalid PDF guide set: missing={MISSING_GUIDES}; "
+        f"unexpected={EXTRA_GUIDES}; empty={EMPTY_GUIDES}"
+    )
+
 a = Analysis(
     [str(PROJECT_ROOT / "app.py")],
     pathex=[str(PROJECT_ROOT / "src")],
@@ -33,13 +46,13 @@ a = Analysis(
         (str(PROJECT_ROOT / "OPEN_LUFSCALE_ON_WINDOWS.md"), "."),
         (str(PROJECT_ROOT / "THIRD_PARTY_NOTICES.md"), "."),
         (str(PROJECT_ROOT / "SBOM.cdx.json"), "."),
-        (str(PROJECT_ROOT / "RELEASE_2.1.12.md"), "."),
-        (str(PROJECT_ROOT / "VALIDATION_2.1.12.md"), "."),
+        (str(PROJECT_ROOT / "RELEASE_2.2.2.md"), "."),
+        (str(PROJECT_ROOT / "VALIDATION_2.2.2.md"), "."),
         (str(PROJECT_ROOT / "third_party_licenses"), "third_party_licenses"),
         (str(GENERATED / "FFMPEG_WINDOWS_DISTRIBUTION_NOTICE.txt"), "."),
         (str(GENERATED / "FFMPEG_WINDOWS_BUILD_MANIFEST.json"), "."),
     ],
-    hiddenimports=[],
+    hiddenimports=["PIL.WebPImagePlugin", "PIL.PngImagePlugin", "PIL.JpegImagePlugin"],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

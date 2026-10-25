@@ -1,4 +1,4 @@
-# LUFScale 2.1.12 for Windows - third-party notices
+# LUFScale 2.2.2 for Windows - third-party notices
 
 This inventory accompanies the GPL-3.0-or-later LUFScale Windows source and
 binary packages. It must remain with every binary distribution. Original
@@ -55,3 +55,7 @@ cross-compiler. Build tools and the isolated Python environment are not
 required by end users. Inno Setup 6.7.3 compiles the single-file setup; its
 compiler is build-only, while its setup and uninstall engine are carried by
 the generated installer under the Inno Setup License.
+
+## Artwork metadata repair
+
+Mutagen 1.47.0 (GPL-2.0-or-later, https://mutagen.readthedocs.io/) edits ID3 metadata on private working copies. Pillow 11.3.0 (MIT-CMU, https://python-pillow.org/) detects and converts embedded images. Their license texts are included in third_party_licenses.

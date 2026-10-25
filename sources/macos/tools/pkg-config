@@ -3,5 +3,5 @@
 set -eu
 script_dir="$(cd -- "$(dirname -- "$0")" && /bin/pwd)"
 project_root="$(cd -- "$script_dir/.." && /bin/pwd)"
-exec "$project_root/.construction-macos/bin/python" \
+exec "$project_root/.build-macos/bin/python" \
     "$script_dir/pkg_config_lite.py" "$@"

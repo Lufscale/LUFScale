@@ -46,7 +46,7 @@ The community applications are currently neither notarized with an Apple Develop
 
 ## Source code
 
-Version 2.1.12 has two editions that were built and validated separately:
+Version 2.2.2 has two editions that were built and validated separately:
 
 - [`sources/macos`](sources/macos): the application and build tools for macOS;
 - [`sources/windows`](sources/windows): the application and build tools for Windows.
@@ -66,3 +66,7 @@ Detailed instructions are available in each edition's README. Information about 
 The original LUFScale code and documentation are distributed under the [GNU General Public License version 3 or later](LICENSE). Third-party components retain their own licenses; the relevant notices are stored in each edition's directory.
 
 Copyright © 2026 Perez Philippe.
+
+## Release history
+
+See [CHANGELOG.md](CHANGELOG.md) for the changes in 2.1.13, 2.2.1 and 2.2.2.

@@ -8,22 +8,32 @@ PROJECT_ROOT = Path(SPECPATH).resolve().parents[1]
 VERSION = run_path(PROJECT_ROOT / "src" / "lufscale" / "version.py")[
     "APP_VERSION"
 ]
-ICON = PROJECT_ROOT / ".construction-macos" / "LUFScale.icns"
+ICON = PROJECT_ROOT / ".build-macos" / "LUFScale.icns"
+if not ICON.is_file():
+    raise FileNotFoundError(f"Application icon not found: {ICON}")
 TARGET_ARCH = os.environ.get("LUFSCALE_TARGET_ARCH") or None
 CODESIGN_IDENTITY = os.environ.get("LUFSCALE_CODESIGN_IDENTITY") or None
 ENTITLEMENTS_FILE = os.environ.get("LUFSCALE_ENTITLEMENTS_FILE") or None
 BUNDLED_FFMPEG = Path(os.environ["LUFSCALE_BUNDLED_FFMPEG"]).resolve()
 if not BUNDLED_FFMPEG.is_file():
     raise FileNotFoundError(f"Bundled FFmpeg not found: {BUNDLED_FFMPEG}")
-MACOS_GUIDES = sorted((PROJECT_ROOT / "output" / "pdf").glob("*.pdf"))
-if len(MACOS_GUIDES) != 12:
+GUIDES_DIR = PROJECT_ROOT / "output" / "pdf"
+EXPECTED_GUIDES = set(run_path(PROJECT_ROOT / "src" / "lufscale" / "resources.py")["PDF_GUIDES"].values())
+ACTUAL_GUIDES = {path.name for path in GUIDES_DIR.glob("*.pdf") if path.is_file()}
+MISSING_GUIDES = sorted(EXPECTED_GUIDES - ACTUAL_GUIDES)
+EXTRA_GUIDES = sorted(ACTUAL_GUIDES - EXPECTED_GUIDES)
+EMPTY_GUIDES = sorted(name for name in EXPECTED_GUIDES & ACTUAL_GUIDES
+                      if (GUIDES_DIR / name).stat().st_size == 0)
+if MISSING_GUIDES or EXTRA_GUIDES or EMPTY_GUIDES:
     raise FileNotFoundError(
-        f"Expected 12 top-level macOS PDF guides, found {len(MACOS_GUIDES)}"
+        f"Invalid PDF guide set: missing={MISSING_GUIDES}; "
+        f"unexpected={EXTRA_GUIDES}; empty={EMPTY_GUIDES}"
     )
+MACOS_GUIDES = [GUIDES_DIR / name for name in sorted(EXPECTED_GUIDES)]
 a = Analysis(
     [str(PROJECT_ROOT / "app.py")],
     pathex=[str(PROJECT_ROOT / "src")],
-    # LUFScale 2.1.12 ships the verified native FFmpeg built by
+    # LUFScale 2.2.2 ships the verified native FFmpeg built by
     # tools/build_bundled_ffmpeg_macos.py.  imageio-ffmpeg remains excluded so
     # PyInstaller cannot silently add a second, unrelated platform binary.
     binaries=[(str(BUNDLED_FFMPEG), ".")],
@@ -37,8 +47,8 @@ a = Analysis(
         (str(PROJECT_ROOT / "OPEN_LUFSCALE_ON_MACOS.md"), "."),
         (str(PROJECT_ROOT / "THIRD_PARTY_NOTICES.md"), "."),
         (str(PROJECT_ROOT / "SBOM.cdx.json"), "."),
-        (str(PROJECT_ROOT / "RELEASE_2.1.12.md"), "."),
-        (str(PROJECT_ROOT / "VALIDATION_2.1.12.md"), "."),
+        (str(PROJECT_ROOT / "RELEASE_2.2.2.md"), "."),
+        (str(PROJECT_ROOT / "VALIDATION_2.2.2.md"), "."),
         (str(PROJECT_ROOT / "third_party_licenses"), "third_party_licenses"),
         (
             str(
@@ -77,7 +87,7 @@ a = Analysis(
             ".",
         ),
     ],
-    hiddenimports=[],
+    hiddenimports=["PIL.WebPImagePlugin", "PIL.PngImagePlugin", "PIL.JpegImagePlugin"],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -124,6 +134,7 @@ app = BUNDLE(
     version=VERSION,
     info_plist={
         "CFBundleDisplayName": "LUFScale",
+        "CFBundleIconFile": ICON.name,
         "CFBundleVersion": VERSION,
         "LSMinimumSystemVersion": "12.0",
         "NSHighResolutionCapable": True,

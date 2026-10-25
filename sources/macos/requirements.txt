@@ -1,2 +1,4 @@
 PySide6_Essentials==6.8.3
 psutil==7.2.2
+mutagen==1.47.0
+Pillow==11.3.0
